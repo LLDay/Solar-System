@@ -3,6 +3,7 @@ package solarsystem;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 public class SolarWindow extends JFrame {
 	private JPanel drawPanel;
@@ -21,10 +22,15 @@ public class SolarWindow extends JFrame {
 		
 		drawPanel = new JPanel(new GridLayout(1, 1));
 		drawPanel.setBackground(Color.black);
-				
+		
+
 		settingsPanel = new JPanel(new GridLayout());
-		settingsPanel.setBackground(Color.gray);
+		settingsPanel.setBackground(new Color(37, 77, 116));
 		settingsPanel.setPreferredSize(new Dimension(250, 600));
+		settingsPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.white), "Properties", 
+				TitledBorder.DEFAULT_POSITION, TitledBorder.DEFAULT_POSITION, standardFont, Color.white));
+		
+		settingsPanel.removeAll();
 		
 		standardFont = new Font("Bahnschrift Light", 0, 12);
 		stateLabel = new JLabel();
