@@ -1,10 +1,11 @@
 package solarsystem;
 
 import java.awt.geom.*;
+import javax.swing.JComponent;
 import java.awt.*;
 import java.awt.MultipleGradientPaint.CycleMethod;
 
-public class SpaceObject {
+public class SpaceObject extends JComponent {
 	private static Color spaceColor = Color.BLACK;
 	private float  radius;
 	private Point2D position;
@@ -115,18 +116,26 @@ public class SpaceObject {
 	}
 	
 	
-	public Paint getPaint() {
+	@Override
+	public void paint(Graphics g) {
+		Graphics2D graphics = (Graphics2D) g;
+		
+		Paint painter;
+		
 		if (!hasGrad) 
-			return color;
+			painter = color;
 		
-		final Point2D center = new Point2D.Double(0, 0);
-		final float[] dist = {0.0f, 1.0f};
-		final Color[] colors = {color, spaceColor};
+		else {
+			final Point2D center = new Point2D.Double(0, 0);
+			final float[] dist = {0.0f, 1.0f};
+			final Color[] colors = {color, spaceColor};
+			
+			painter = new RadialGradientPaint(center, gradRadius, center, dist, colors, CycleMethod.NO_CYCLE);
+		}
 		
-		return new RadialGradientPaint(center, gradRadius, center, dist, colors, CycleMethod.NO_CYCLE);
-	}
-	
-	public Shape getShape() {
-		return new Ellipse2D.Double(-radius / 2, -radius / 2, radius, radius);
+		Ellipse2D ellipse = new Ellipse2D.Double(-radius / 2, -radius / 2, radius, radius);
+		
+		graphics.setPaint(painter);
+		graphics.fill(ellipse);
 	}
 }

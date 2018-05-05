@@ -1,14 +1,11 @@
 package solarsystem;
 
 import java.awt.Dimension;
-import java.awt.MouseInfo;
 import java.awt.event.*;
-import java.awt.geom.Point2D;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.SwingUtilities;
-import javax.swing.event.MouseInputListener;
 
 public class Camera extends MouseAdapter
 implements MouseWheelListener, MouseListener  {
@@ -97,7 +94,7 @@ implements MouseWheelListener, MouseListener  {
 		
 		if (timer == null)
 			timer = new java.util.Timer();
-		System.out.println(mouseX);
+		
 		timer.schedule(new TimerTask() {
             public void run() {
             	posX += speed * (canvSize.getWidth() / 2 - mouseX);
