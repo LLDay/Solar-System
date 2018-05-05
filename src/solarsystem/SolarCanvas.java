@@ -18,6 +18,8 @@ public class SolarCanvas extends Canvas {
 		solarTransform = new AffineTransform();
 		position = new Point(0, 0);
 		sun = new Sun(200);		
+		sun.hasGradient(false);
+		sun.setGradientRadius(250);
 	}
 	
 	@Override

@@ -20,7 +20,7 @@ public class Sun extends SpaceObject {
 		super(radius, center, centerColor);
 	}
 	
-	public Sun(float sunRadius, final Color topGradientColor, final Color botGradientColor,  float gradientRadius) {
-		super(sunRadius, center, topGradientColor, botGradientColor, center, gradientRadius);
+	public Sun(float sunRadius, final Color sunColor,  float gradientRadius, boolean hasGradient) {
+		super(sunRadius, center, sunColor, center, gradientRadius, hasGradient);
 	}
 }

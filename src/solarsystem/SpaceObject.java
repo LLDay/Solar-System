@@ -5,61 +5,50 @@ import java.awt.*;
 import java.awt.MultipleGradientPaint.CycleMethod;
 
 public class SpaceObject {
+	private static Color spaceColor = Color.BLACK;
 	private float  radius;
 	private Point2D position;
 	
-	private Color   colorTop;
-	private Color	colorBot;
+	private boolean hasGrad;
+	private Color   color;
 	private Point2D gradCenter;
 	private float	gradRadius;
 	
 	public SpaceObject() {
-		radius = 0.0f;
+		radius     = 0.0f;
 		gradRadius = 0.0f;
+		hasGrad    = true; 
 	}
 	
-	public SpaceObject(float shapeRadius, final Point2D shapePosition, final Color topGradientColor) {
-		this(shapeRadius, shapePosition, topGradientColor, Color.BLACK, shapePosition, shapeRadius);
+	public SpaceObject(float shapeRadius, final Point2D shapePosition, final Color shapeColor) {
+		this(shapeRadius, shapePosition, shapeColor, shapePosition, shapeRadius, true);
 	}
 	
-	public SpaceObject(float shapeRadius, final Point2D shapePosition, final Color topGradientColor,
-			final Color botGradientColor, final Point2D gradientCenter, float gradientRadius) {
+	public SpaceObject(float shapeRadius, final Point2D shapePosition, final Color shapeColor, 
+			final Point2D gradientCenter, float gradientRadius, boolean hasGradient) {
 		radius     = shapeRadius;
 		position   = shapePosition;
-		colorTop   = topGradientColor;
-		colorBot   = botGradientColor;
+		color      = shapeColor;
 		gradRadius = gradientRadius;
 		gradCenter = gradientCenter;
+		hasGrad    = true;
 	}
 	
 	
-	public void setTopColor(final Color color) {
-		if (color == null)
-			throw new NullPointerException("New color of gradient center is null");
+	public void setColor(final Color shapeColor) {
+		if (spaceColor == null)
+			throw new NullPointerException("New color of shape is null");
 		
-		colorTop = color;
+		color = spaceColor;
 	}
 	
-	public final Color getTopColor() {
-		if (colorTop == null) 
+	public final Color getColor() {
+		if (color == null) 
 			throw new NullPointerException("Color is null");
 		
-		return colorTop;
+		return color;
 	}
 	
-	public void setBottomColor(final Color color) {
-		if (color == null)
-			throw new NullPointerException("New color of gradient bottom is null");
-		
-		colorBot = color;
-	}
-	
-	public final Color getBottomColor() {
-		if (colorTop == null) 
-			throw new NullPointerException("Color is null");
-		
-		return colorBot;
-	}
 	
 	public void setRadius(float newRadius) {
 		radius = newRadius;
@@ -67,6 +56,14 @@ public class SpaceObject {
 	
 	public float getRadius() {
 		return radius;
+	}
+	
+	public void hasGradient(boolean isGrad) {
+		hasGrad = isGrad;
+	}
+	
+	public boolean isGradient() {
+		return hasGrad;
 	}
 	
 	
@@ -119,9 +116,12 @@ public class SpaceObject {
 	
 	
 	public Paint getPaint() {
+		if (!hasGrad) 
+			return color;
+		
 		final Point2D center = new Point2D.Double(0, 0);
-		final float[] dist = {0.1f, 1.0f};
-		final Color[] colors = {colorTop, colorBot};
+		final float[] dist = {0.0f, 1.0f};
+		final Color[] colors = {color, spaceColor};
 		
 		return new RadialGradientPaint(center, gradRadius, center, dist, colors, CycleMethod.NO_CYCLE);
 	}
