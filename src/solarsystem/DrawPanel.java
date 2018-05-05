@@ -6,34 +6,43 @@ import java.awt.geom.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class SolarCanvas extends Canvas {
+import javax.swing.JPanel;
+
+public class DrawPanel extends JPanel implements Runnable {
 	private Camera camera;
 	private Sun sun;
 	
-	private int fps = 30;
+	private int fps = 60;
 
 	
-	
-	public SolarCanvas(int solarRad, Color solarColor, int gradientRadius) {
+	public DrawPanel() {
 		camera = new Camera();
 		sun = new Sun(200);		
-		
 		
 		addMouseWheelListener(camera);
 		addMouseMotionListener(camera);
 		addMouseListener(camera);
 		
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-            public void run() {
-            	repaint();
-            }
-        }, 100, 1000 / fps);
+		Thread animation = new Thread(this);
+		animation.start();
 	
+		this.setBackground(Color.BLACK);	
 	}
 	
 	@Override
-	public void paint(Graphics g) {
+	public void run() {
+		for(;;){
+            try {
+                Thread.sleep(1000 / fps);
+            } 
+            catch (InterruptedException e) {}
+            repaint();
+		}
+	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		Graphics2D graphics = (Graphics2D) g;
 		
 		camera.setCanvasSize(this.getSize());
@@ -43,9 +52,8 @@ public class SolarCanvas extends Canvas {
         at.scale(camera.getZoom(), camera.getZoom());
 
 		graphics.setTransform(at);
-		graphics.setPaint(sun.getPaint());
-	    graphics.fill(sun.getShape());
+		sun.paint(graphics);
+		g.dispose();
 	}
-	
 
 }
