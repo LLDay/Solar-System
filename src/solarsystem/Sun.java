@@ -7,7 +7,7 @@ public class Sun extends SpaceObject {
 	private static Point2D center = new Point2D.Float(0, 0);
 
 	public Sun() {
-		super(100.0f, center, Color.ORANGE);
+		super(100.0f, center, MainProperties.defaultSunColor);
 	}
 
 	public Sun(float radius) {

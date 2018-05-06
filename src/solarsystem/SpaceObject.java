@@ -1,12 +1,10 @@
 package solarsystem;
 
 import java.awt.geom.*;
-import javax.swing.JComponent;
 import java.awt.*;
 import java.awt.MultipleGradientPaint.CycleMethod;
 
 public class SpaceObject extends Component {
-	private static Color spaceColor = Color.BLACK;
 	private float radius;
 	private Point2D position;
 
@@ -36,10 +34,10 @@ public class SpaceObject extends Component {
 	}
 
 	public void setColor(final Color shapeColor) {
-		if (spaceColor == null)
+		if (shapeColor == null)
 			throw new NullPointerException("New color of shape is null");
 
-		color = spaceColor;
+		color = shapeColor;
 	}
 
 	public final Color getColor() {
@@ -120,7 +118,7 @@ public class SpaceObject extends Component {
 		else {
 			final Point2D center = new Point2D.Double(0, 0);
 			final float[] dist = { 0.0f, 1.0f };
-			final Color[] colors = { color, spaceColor };
+			final Color[] colors = { color, MainProperties.spaceColor };
 
 			painter = new RadialGradientPaint(center, gradRadius, center, dist, colors, CycleMethod.NO_CYCLE);
 		}

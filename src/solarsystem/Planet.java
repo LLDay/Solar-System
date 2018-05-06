@@ -1,7 +1,6 @@
 package solarsystem;
 
 import java.awt.*;
-import java.awt.geom.*;
 import java.util.Random;
 
 public class Planet extends SpaceObject {

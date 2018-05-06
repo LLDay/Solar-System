@@ -10,7 +10,6 @@ public class SolarWindow extends JFrame {
 	private JPanel settingsPanel;
 
 	private JLabel stateLabel;
-	private Font standardFont;
 
 	public SolarWindow() {
 		super("Solar system");
@@ -27,16 +26,15 @@ public class SolarWindow extends JFrame {
 		drawPanel.setBackground(Color.black);
 
 		settingsPanel = new JPanel(new GridLayout());
-		settingsPanel.setBackground(new Color(37, 77, 116));
+		settingsPanel.setBackground(MainProperties.settingsPanelColor);
 		settingsPanel.setPreferredSize(new Dimension(250, 600));
 		settingsPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.white),
-				"Properties", TitledBorder.DEFAULT_POSITION, TitledBorder.DEFAULT_POSITION, standardFont, Color.white));
+				"Properties", TitledBorder.DEFAULT_POSITION, TitledBorder.DEFAULT_POSITION, MainProperties.mainFont, Color.white));
 
-		standardFont = new Font("Bahnschrift Light", 0, 12);
 		stateLabel = new JLabel();
 		stateLabel.setText("Current state:");
 		stateLabel.setForeground(Color.white);
-		stateLabel.setFont(standardFont);
+		stateLabel.setFont(MainProperties.mainFont);
 		stateLabel.setBorder(new EmptyBorder(0, 5, 0, 0));
 
 		JPanel statePanel = new JPanel(new BorderLayout());

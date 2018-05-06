@@ -3,6 +3,7 @@ package solarsystem;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.*;
+import java.awt.geom.Point2D;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -15,7 +16,7 @@ public class Camera extends MouseAdapter implements MouseWheelListener, MouseLis
 	private double posY;
 	private Dimension canvSize;
 
-	private double speed = 0.05;
+	private double speed = 0.07;
 
 	private int mouseX;
 	private int mouseY;
@@ -53,20 +54,21 @@ public class Camera extends MouseAdapter implements MouseWheelListener, MouseLis
 		return zoom;
 	}
 
-	public void setPosX(double position) {
-		posX = position;
+	public void setPosition(final Point2D position) {
+		if (position == null)
+			throw new NullPointerException("Position is null");
+
+		posX = position.getX();
+		posY = position.getY();
 	}
 
-	public double getPosX() {
-		return posX;
+	public void setPosition(double positionX, double positionY) {
+		posX = positionX;
+		posY = positionY;
 	}
 
-	public void setPosY(double position) {
-		posY = position;
-	}
-
-	public double getPosY() {
-		return posY;
+	public Point2D getPosition() {
+		return new Point2D.Double(posX, posY);
 	}
 
 	public void setCanvasSize(final Dimension size) {
@@ -83,8 +85,12 @@ public class Camera extends MouseAdapter implements MouseWheelListener, MouseLis
 		canvSize = new Dimension(width, height);
 	}
 
-	public final Dimension getCanvasSize() {
-		return canvSize;
+	public void setSpeed(double cameraSpeed) {
+		speed = cameraSpeed;
+	}
+
+	public double getSpeed() {
+		return speed;
 	}
 
 	public void centralPosition(final Container parent) {

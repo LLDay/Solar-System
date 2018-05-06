@@ -23,7 +23,11 @@ public class DrawPanel extends JPanel implements Runnable {
 		Thread animation = new Thread(this);
 		animation.start();
 
-		this.setBackground(Color.BLACK);
+		this.setBackground(MainProperties.spaceColor);
+	}
+
+	public void setCameraPosition(final Point2D position) {
+		camera.setPosition(position);
 	}
 
 	@Override
@@ -44,7 +48,7 @@ public class DrawPanel extends JPanel implements Runnable {
 		camera.setCanvasSize(this.getSize());
 
 		AffineTransform at = new AffineTransform();
-		at.translate(camera.getPosX(), camera.getPosY());
+		at.translate(camera.getPosition().getX(), camera.getPosition().getY());
 		at.scale(camera.getZoom(), camera.getZoom());
 		graphics.setTransform(at);
 
