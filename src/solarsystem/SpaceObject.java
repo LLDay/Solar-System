@@ -123,7 +123,7 @@ public class SpaceObject extends Component {
 			painter = new RadialGradientPaint(center, gradRadius, center, dist, colors, CycleMethod.NO_CYCLE);
 		}
 
-		Ellipse2D ellipse = new Ellipse2D.Double(-radius / 2, -radius / 2, radius, radius);
+		Ellipse2D ellipse = new Ellipse2D.Double(-radius, -radius, radius * 2, radius * 2);
 
 		graphics.setPaint(painter);
 		graphics.fill(ellipse);

@@ -9,7 +9,7 @@ public class SolarWindow extends JFrame {
 	private JPanel drawPanel;
 	private JPanel settingsPanel;
 
-	private JLabel stateLabel;
+	private static JLabel stateLabel = new JLabel();
 
 	public SolarWindow() {
 		super("Solar system");
@@ -31,7 +31,6 @@ public class SolarWindow extends JFrame {
 		settingsPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.white),
 				"Properties", TitledBorder.DEFAULT_POSITION, TitledBorder.DEFAULT_POSITION, MainProperties.mainFont, Color.white));
 
-		stateLabel = new JLabel();
 		stateLabel.setText("Current state:");
 		stateLabel.setForeground(Color.white);
 		stateLabel.setFont(MainProperties.mainFont);
@@ -48,7 +47,7 @@ public class SolarWindow extends JFrame {
 		this.add(statePanel, BorderLayout.SOUTH);
 	}
 
-	public void setStateInformation(String newState) {
+	public static void setStateInformation(String newState) {
 		stateLabel.setText(newState);
 	}
 

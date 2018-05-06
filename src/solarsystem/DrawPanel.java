@@ -51,7 +51,12 @@ public class DrawPanel extends JPanel implements Runnable {
 		at.translate(camera.getPosition().getX(), camera.getPosition().getY());
 		at.scale(camera.getZoom(), camera.getZoom());
 		graphics.setTransform(at);
-
+		
+		Point2D mouseSpacePosition = camera.getMouseSpacePosition();
+		
+		SolarWindow.setStateInformation(String.format("%.3f", mouseSpacePosition.getX()) + " : " + 
+				String.format("%.3f", mouseSpacePosition.getY()));
+		
 		sun.paint(g);
 	}
 }

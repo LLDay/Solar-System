@@ -101,6 +101,13 @@ public class Camera extends MouseAdapter implements MouseWheelListener, MouseLis
 		posY = parent.getHeight() / 2;
 	}
 
+	public Point2D getMouseSpacePosition() {
+		double mousePosX = (mouseX - posX) / zoom;
+		double mousePosY = (posY - mouseY) / zoom;
+		
+		return new Point2D.Double(mousePosX, mousePosY);
+	}
+	
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		double zoomFactor = -0.1 * e.getPreciseWheelRotation() * zoom;
@@ -136,6 +143,12 @@ public class Camera extends MouseAdapter implements MouseWheelListener, MouseLis
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		mouseX = e.getX();
+		mouseY = e.getY();
+	}
+	
+	@Override
+	public void mouseMoved(MouseEvent e) {
 		mouseX = e.getX();
 		mouseY = e.getY();
 	}

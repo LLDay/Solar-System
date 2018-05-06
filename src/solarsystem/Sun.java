@@ -13,7 +13,7 @@ public class Sun extends SpaceObject {
 	public Sun(float radius) {
 		this();
 		super.setRadius(radius);
-		super.setGradientRadius(radius * 0.9f);
+		super.setGradientRadius(radius * 1.9f);
 	}
 
 	public Sun(float radius, Color centerColor) {
