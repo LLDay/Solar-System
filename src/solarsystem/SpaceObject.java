@@ -7,16 +7,18 @@ import java.awt.MultipleGradientPaint.CycleMethod;
 public class SpaceObject extends Component {
 	private float radius;
 	private Point2D position;
-
+	private String name;
+	
 	private boolean hasGrad;
 	private Color color;
 	private Point2D gradCenter;
 	private float gradRadius;
-
+	
 	public SpaceObject() {
 		radius = 0.0f;
 		gradRadius = 0.0f;
 		hasGrad = true;
+		name = "";
 	}
 
 	public SpaceObject(float shapeRadius, final Point2D shapePosition, final Color shapeColor) {
@@ -25,6 +27,10 @@ public class SpaceObject extends Component {
 
 	public SpaceObject(float shapeRadius, final Point2D shapePosition, final Color shapeColor,
 			final Point2D gradientCenter, float gradientRadius, boolean hasGradient) {
+		
+		if(shapeRadius < 0)
+			throw new IllegalArgumentException("Radius cannot be negative");
+		
 		radius = shapeRadius;
 		position = shapePosition;
 		color = shapeColor;
@@ -41,13 +47,13 @@ public class SpaceObject extends Component {
 	}
 
 	public final Color getColor() {
-		if (color == null)
-			throw new NullPointerException("Color is null");
-
 		return color;
 	}
 
 	public void setRadius(float newRadius) {
+		if (newRadius <= 0)
+			throw new IllegalArgumentException("Radius cannot be negative");
+		
 		radius = newRadius;
 	}
 
@@ -55,6 +61,17 @@ public class SpaceObject extends Component {
 		return radius;
 	}
 
+	public void setName(final String newName) {
+		if (newName == null) 
+			throw new NullPointerException("Name of space object is null");
+		
+		name = newName;
+	}
+	
+	public final String getName() {
+		return name;
+	}
+	
 	public void hasGradient(boolean isGrad) {
 		hasGrad = isGrad;
 	}
@@ -75,9 +92,6 @@ public class SpaceObject extends Component {
 	}
 
 	public final Point2D getPosition() {
-		if (position == null)
-			throw new NullPointerException("Position is null");
-
 		return position;
 	}
 
@@ -93,9 +107,6 @@ public class SpaceObject extends Component {
 	}
 
 	public final Point2D getGradientCenter() {
-		if (gradCenter == null)
-			throw new NullPointerException("Gradient center point is null");
-
 		return gradCenter;
 	}
 
@@ -112,15 +123,20 @@ public class SpaceObject extends Component {
 		Graphics2D graphics = (Graphics2D) g;
 		Paint painter;
 
+		if (color == null) 
+			throw new NullPointerException("Color is not defined");
+		
 		if (!hasGrad)
 			painter = color;
 
 		else {
-			final Point2D center = new Point2D.Double(0, 0);
+			if (gradCenter == null)
+				throw new NullPointerException("Center of gradient is not defined");
+			
 			final float[] dist = { 0.0f, 1.0f };
 			final Color[] colors = { color, MainProperties.spaceColor };
 
-			painter = new RadialGradientPaint(center, gradRadius, center, dist, colors, CycleMethod.NO_CYCLE);
+			painter = new RadialGradientPaint(gradCenter, gradRadius, gradCenter, dist, colors, CycleMethod.NO_CYCLE);
 		}
 
 		Ellipse2D ellipse = new Ellipse2D.Double(-radius, -radius, radius * 2, radius * 2);

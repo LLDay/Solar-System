@@ -8,6 +8,7 @@ public class Sun extends SpaceObject {
 
 	public Sun() {
 		super(100.0f, center, MainProperties.defaultSunColor);
+		super.setName("The Sun");
 	}
 
 	public Sun(float radius) {
@@ -18,9 +19,11 @@ public class Sun extends SpaceObject {
 
 	public Sun(float radius, Color centerColor) {
 		super(radius, center, centerColor);
+		super.setName("The Sun");
 	}
 
 	public Sun(float sunRadius, final Color sunColor, float gradientRadius, boolean hasGradient) {
 		super(sunRadius, center, sunColor, center, gradientRadius, hasGradient);
+		super.setName("The Sun");
 	}
 }

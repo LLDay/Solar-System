@@ -30,6 +30,39 @@ public class DrawPanel extends JPanel implements Runnable {
 		camera.setPosition(position);
 	}
 
+	public final SpaceObject getObjectByMousePos() {
+		double posX = camera.getMouseSpacePosition().getX();
+		double posY = camera.getMouseSpacePosition().getY();
+		
+		for (int i = 0; i < this.getComponentCount(); i++) {
+			SpaceObject tmpObject = (SpaceObject) this.getComponent(i);
+			
+			double objX = tmpObject.getPosition().getX();
+			double objY = tmpObject.getPosition().getY();
+			double objRadius = tmpObject.getRadius();
+			
+			double deltaXSquad = (posX - objX) * (posX - objX);
+			double detlaYSquad = (posY - objY) * (posY - objY);
+			
+			if (Math.sqrt(deltaXSquad + detlaYSquad) <= objRadius)
+				return tmpObject;
+		}
+
+		return null;
+	}
+	
+	public void changeStateInfo() {
+		SpaceObject mouseFocus = getObjectByMousePos();
+		
+		if (mouseFocus != null && mouseFocus.getName() != null) {
+			SolarWindow.setStateInformation(mouseFocus.getName());
+			return;
+		}
+		
+		SolarWindow.setStateInformation(String.format("%.3f", camera.getMouseSpacePosition().getX()) + " : " + 
+				String.format("%.3f", camera.getMouseSpacePosition().getY()));
+	}
+	
 	@Override
 	public void run() {
 		while (true) {
@@ -54,9 +87,9 @@ public class DrawPanel extends JPanel implements Runnable {
 		
 		Point2D mouseSpacePosition = camera.getMouseSpacePosition();
 		
-		SolarWindow.setStateInformation(String.format("%.3f", mouseSpacePosition.getX()) + " : " + 
-				String.format("%.3f", mouseSpacePosition.getY()));
+		changeStateInfo();
 		
-		sun.paint(g);
+		for (int i = 0; i < this.getComponentCount(); i++) 
+			this.getComponent(i).paint(g);
 	}
 }
