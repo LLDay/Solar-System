@@ -21,9 +21,11 @@ public class Camera extends MouseAdapter implements MouseWheelListener, MouseLis
 	private int mouseX;
 	private int mouseY;
 	private Timer timer;
+	private TimeTakt takt;
 
 	Camera() {
 		zoom = 1.0;
+		takt = new TimeTakt();
 	}
 
 	Camera(final Dimension startPos) {

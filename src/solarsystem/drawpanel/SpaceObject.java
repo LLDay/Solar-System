@@ -67,8 +67,8 @@ public class SpaceObject extends Component {
 		position = newPosition;
 	}
 
-	public void setPosiiton(float x, float y) {
-		position = new Point2D.Float(x, y);
+	public void setPosition(double x, double y) {
+		position = new Point2D.Double(x, y);
 	}
 
 	public final Point2D getPosition() {
