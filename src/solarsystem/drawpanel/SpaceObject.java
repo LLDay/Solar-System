@@ -1,6 +1,9 @@
-package solarsystem;
+package solarsystem.drawpanel;
 
 import java.awt.geom.*;
+
+import solarsystem.MainProperties;
+
 import java.awt.*;
 import java.awt.MultipleGradientPaint.CycleMethod;
 

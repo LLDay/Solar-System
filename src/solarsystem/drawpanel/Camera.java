@@ -1,4 +1,4 @@
-package solarsystem;
+package solarsystem.drawpanel;
 
 import java.awt.Container;
 import java.awt.Dimension;

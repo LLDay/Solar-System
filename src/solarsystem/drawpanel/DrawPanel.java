@@ -1,9 +1,12 @@
-package solarsystem;
+package solarsystem.drawpanel;
 
 import java.awt.*;
 import java.awt.geom.*;
 
 import javax.swing.JPanel;
+
+import solarsystem.MainProperties;
+import solarsystem.SolarWindow;
 
 public class DrawPanel extends JPanel implements Runnable {
 	private Camera camera;

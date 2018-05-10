@@ -1,4 +1,4 @@
-package solarsystem;
+package solarsystem.drawpanel;
 
 import java.awt.*;
 import java.awt.geom.Point2D;

@@ -5,6 +5,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import solarsystem.drawpanel.DrawPanel;;
+
 public class SolarWindow extends JFrame {
 	private JPanel drawPanel;
 	private JPanel settingsPanel;
