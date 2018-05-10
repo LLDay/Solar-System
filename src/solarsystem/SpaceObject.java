@@ -5,38 +5,23 @@ import java.awt.*;
 import java.awt.MultipleGradientPaint.CycleMethod;
 
 public class SpaceObject extends Component {
-	private float radius;
+	private double radius;
 	private Point2D position;
 	private String name;
-	
-	private boolean hasGrad;
+
 	private Color color;
 	private Point2D gradCenter;
-	private float gradRadius;
-	
+	private double gradRadius;
+
 	public SpaceObject() {
-		radius = 0.0f;
-		gradRadius = 0.0f;
-		hasGrad = true;
+		radius = 100;
+		position = new Point2D.Double(0, 0);
 		name = "";
-	}
-
-	public SpaceObject(float shapeRadius, final Point2D shapePosition, final Color shapeColor) {
-		this(shapeRadius, shapePosition, shapeColor, shapePosition, shapeRadius, true);
-	}
-
-	public SpaceObject(float shapeRadius, final Point2D shapePosition, final Color shapeColor,
-			final Point2D gradientCenter, float gradientRadius, boolean hasGradient) {
 		
-		if(shapeRadius < 0)
-			throw new IllegalArgumentException("Radius cannot be negative");
-		
-		radius = shapeRadius;
-		position = shapePosition;
-		color = shapeColor;
-		gradRadius = gradientRadius;
-		gradCenter = gradientCenter;
-		hasGrad = true;
+		color = Color.WHITE;
+		gradCenter = new Point2D.Double(0, 0);
+		gradRadius = 100;
+		name = "";
 	}
 
 	public void setColor(final Color shapeColor) {
@@ -50,34 +35,26 @@ public class SpaceObject extends Component {
 		return color;
 	}
 
-	public void setRadius(float newRadius) {
+	public void setRadius(double newRadius) {
 		if (newRadius <= 0)
-			throw new IllegalArgumentException("Radius cannot be negative");
-		
+			throw new IllegalArgumentException("Radius cannot be negative or zero");
+
 		radius = newRadius;
 	}
 
-	public float getRadius() {
+	public double getRadius() {
 		return radius;
 	}
 
 	public void setName(final String newName) {
-		if (newName == null) 
+		if (newName == null)
 			throw new NullPointerException("Name of space object is null");
-		
+
 		name = newName;
 	}
-	
+
 	public final String getName() {
 		return name;
-	}
-	
-	public void hasGradient(boolean isGrad) {
-		hasGrad = isGrad;
-	}
-
-	public boolean isGradient() {
-		return hasGrad;
 	}
 
 	public void setPosition(final Point2D newPosition) {
@@ -102,46 +79,44 @@ public class SpaceObject extends Component {
 		gradCenter = center;
 	}
 
-	public void setGradientCenter(float x, float y) {
-		gradCenter = new Point2D.Float(x, y);
+	public void setGradientCenter(double x, double y) {
+		gradCenter = new Point2D.Double(x, y);
 	}
 
 	public final Point2D getGradientCenter() {
 		return gradCenter;
 	}
 
-	public void setGradientRadius(float newGradRadius) {
+	public void setGradientRadius(double newGradRadius) {
+		if (newGradRadius <= 0)
+			throw new IllegalArgumentException("Gradient radius cannot be negative or zero");
+		
 		gradRadius = newGradRadius;
 	}
 
-	public float getGradientRadius() {
+	public double getGradientRadius() {
 		return gradRadius;
+	}
+
+	private Paint getPainter() {
+		if (!MainProperties.isGradient)
+			return color;
+
+		final float[] dist = { 0.0f, 1.0f };
+		final Color[] colors = { color, MainProperties.spaceColor };
+
+		return new RadialGradientPaint(gradCenter, (float) gradRadius, gradCenter, dist, colors,
+				CycleMethod.NO_CYCLE);
 	}
 
 	@Override
 	public void paint(Graphics g) {
-		Graphics2D graphics = (Graphics2D) g;
-		Paint painter;
-
-		if (color == null) 
-			throw new NullPointerException("Color is not defined");
+		Graphics2D graphics = (Graphics2D) g;	
 		
-		if (!hasGrad)
-			painter = color;
+		Ellipse2D ellipse = new Ellipse2D.Double(position.getX() - radius, -position.getY() - radius, radius * 2,
+				radius * 2);
 
-		else {
-			if (gradCenter == null)
-				throw new NullPointerException("Center of gradient is not defined");
-			
-			final float[] dist = { 0.0f, 1.0f };
-			final Color[] colors = { color, MainProperties.spaceColor };
-
-			painter = new RadialGradientPaint(gradCenter, gradRadius, gradCenter, dist, colors, CycleMethod.NO_CYCLE);
-		}
-
-		Ellipse2D ellipse = new Ellipse2D.Double(-radius, -radius, radius * 2, radius * 2);
-
-		graphics.setPaint(painter);
+		graphics.setPaint(getPainter());
 		graphics.fill(ellipse);
 	}
 }

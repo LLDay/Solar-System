@@ -9,17 +9,22 @@ public class DrawPanel extends JPanel implements Runnable {
 	private Camera camera;
 	private Sun sun;
 
-	private int fps = 60;
-
 	public DrawPanel() {
 		camera = new Camera(200, 200);
 		sun = new Sun(200);
+		
+		Planet earth = new Planet(sun);
+		earth.setPosiiton(500, 500);
+		earth.setRadius(100);
+		earth.setName("Earth");
 
 		addMouseWheelListener(camera);
 		addMouseMotionListener(camera);
 		addMouseListener(camera);
 
 		this.add(sun);
+		this.add(earth);
+		
 		Thread animation = new Thread(this);
 		animation.start();
 
@@ -67,7 +72,7 @@ public class DrawPanel extends JPanel implements Runnable {
 	public void run() {
 		while (true) {
 			try {
-				Thread.sleep(1000 / fps);
+				Thread.sleep(1000 / MainProperties.maxFPS);
 			} catch (InterruptedException e) {}
 			repaint(100);
 		}
