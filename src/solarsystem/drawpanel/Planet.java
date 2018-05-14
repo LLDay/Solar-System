@@ -6,19 +6,24 @@ import java.util.Random;
 import solarsystem.MainProperties;
 
 public class Planet extends SpaceObject {
-	private float speedX;
-	private float speedY;
+	private double speedX = 0.5;
+	private double speedY;
 	private TimeTakt takt;
+	
+	private double a, b;
 	
 	private SpaceObject objRotation;
 	
-	Random rand = new Random(System.currentTimeMillis());
+	static Random rand = new Random(System.currentTimeMillis());
 	
-	public Planet(final SpaceObject focusRotation, String name) {
+	public Planet(final SpaceObject focusRotation, String name, double a, double b) {
 		super.setColor(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
 		super.setGradientCenter(focusRotation.getPosition());
 		super.setGradientRadius(MainProperties.brightness);
 		super.setName(name);
+		
+		this.a = a;
+		this.b = b;
 		
 		takt = new TimeTakt();
 		objRotation = focusRotation;
@@ -30,8 +35,20 @@ public class Planet extends SpaceObject {
 				getPosition().getY() + deltaTime * y);
 	}
 	
+	private void move() {
+		double deltaTime = takt.time();
+		
+		//double ang = 45 * Math.PI / 180;
+		double ang = 0.0;
+		
+		double x = a * Math.cos(speedX * deltaTime + ang);
+		double y = b * Math.sin(speedX * deltaTime + ang);
+		
+		setPosition(x, y);
+	}
+	
 	private void update() {
-		move(100.0, 0);
+		move();
 	}
 	
 	@Override

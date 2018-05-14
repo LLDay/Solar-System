@@ -1,13 +1,14 @@
 package solarsystem.drawpanel;
 
+import java.awt.*;
 import java.awt.geom.*;
+import java.awt.MultipleGradientPaint.CycleMethod;
+import javax.swing.JComponent;
 
 import solarsystem.MainProperties;
 
-import java.awt.*;
-import java.awt.MultipleGradientPaint.CycleMethod;
 
-public class SpaceObject extends Component {
+public class SpaceObject extends JComponent {
 	private double radius;
 	private Point2D position;
 	private String name;
@@ -112,12 +113,20 @@ public class SpaceObject extends Component {
 				CycleMethod.NO_CYCLE);
 	}
 
+	public double distance(final SpaceObject other) {
+		double deltaX = this.position.getX() - other.position.getX();
+		double deltaY = this.position.getY() - other.position.getY();
+		
+		return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+	}
+	
 	@Override
 	public void paint(Graphics g) {
 		Graphics2D graphics = (Graphics2D) g;	
 		
 		Ellipse2D ellipse = new Ellipse2D.Double(position.getX() - radius, -position.getY() - radius, radius * 2,
 				radius * 2);
+
 
 		graphics.setPaint(getPainter());
 		graphics.fill(ellipse);

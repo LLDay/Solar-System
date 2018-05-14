@@ -14,7 +14,7 @@ public class Sun extends SpaceObject {
 	public Sun(double radius) {
 		this();
 		super.setRadius(radius);
-		super.setGradientRadius(radius * 1.9f);
+		super.setGradientRadius(radius * 1.9);
 	}
 
 	public Sun(double radius, Color sunColor) {

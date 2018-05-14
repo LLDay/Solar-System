@@ -13,12 +13,17 @@ public class DrawPanel extends JPanel implements Runnable {
 	private Sun sun;
 
 	public DrawPanel() {
+		super.setLayout(new BorderLayout());
+		super.setBackground(MainProperties.spaceColor);
+		
 		camera = new Camera(200, 200);
 		sun = new Sun(200);
 
-		Planet earth = new Planet(sun, "Earth");
-		earth.setPosition(500, 500);
+		Planet earth = new Planet(sun, "Earth", 100, 500);
 		earth.setRadius(100);
+		
+		Planet mars = new Planet(sun, "Mars", 300, 200);
+		mars.setRadius(80);
 
 		addMouseWheelListener(camera);
 		addMouseMotionListener(camera);
@@ -26,11 +31,10 @@ public class DrawPanel extends JPanel implements Runnable {
 
 		this.add(sun);
 		this.add(earth);
+		this.add(mars);
 
 		Thread animation = new Thread(this);
 		animation.start();
-
-		this.setBackground(MainProperties.spaceColor);
 	}
 
 	public void setCameraPosition(final Point2D position) {
@@ -77,7 +81,7 @@ public class DrawPanel extends JPanel implements Runnable {
 				Thread.sleep(1000 / MainProperties.maxFPS);
 			} catch (InterruptedException e) {}
 
-			repaint(100);
+			repaint();
 		}
 
 	}
@@ -93,8 +97,6 @@ public class DrawPanel extends JPanel implements Runnable {
 		at.translate(camera.getPosition().getX(), camera.getPosition().getY());
 		at.scale(camera.getZoom(), camera.getZoom());
 		graphics.setTransform(at);
-
-		Point2D mouseSpacePosition = camera.getMouseSpacePosition();
 
 		changeStateInfo();
 

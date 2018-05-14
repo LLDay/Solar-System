@@ -24,8 +24,6 @@ public class SolarWindow extends JFrame {
 		this.setLayout(mainWindowLayout);
 
 		drawPanel = new DrawPanel();
-		drawPanel.setLayout(new GridLayout(1, 1));
-		drawPanel.setBackground(Color.black);
 
 		settingsPanel = new JPanel(new GridLayout());
 		settingsPanel.setBackground(MainProperties.settingsPanelColor);

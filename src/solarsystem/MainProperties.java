@@ -12,5 +12,5 @@ public class MainProperties {
 	public static double  brightness = 1000;
 	
 	public static Font mainFont = new Font("Bahnschrift Light", 0, 12);
-	public static int  maxFPS   = 50;
+	public static int  maxFPS   = 60;
 }
