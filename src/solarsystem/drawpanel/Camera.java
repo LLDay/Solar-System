@@ -7,8 +7,8 @@ import java.awt.geom.Point2D;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import solarsystem.MainProperties;
 
 public class Camera extends MouseAdapter implements MouseWheelListener, MouseListener {
 	private double zoom;
@@ -16,12 +16,13 @@ public class Camera extends MouseAdapter implements MouseWheelListener, MouseLis
 	private double posY;
 	private Dimension canvSize;
 
-	private double speed = 0.07;
+	private double speed = 3;
 
 	private int mouseX;
 	private int mouseY;
 	private Timer timer;
 	private TimeTakt takt;
+	
 
 	Camera() {
 		zoom = 1.0;
@@ -124,15 +125,18 @@ public class Camera extends MouseAdapter implements MouseWheelListener, MouseLis
 		if (!SwingUtilities.isRightMouseButton(e))
 			return;
 
-		if (timer == null)
-			timer = new java.util.Timer();
+		if (timer == null) {
+			timer = new Timer();
+			takt.delta();
+		}
 
 		timer.schedule(new TimerTask() {
 			public void run() {
-				posX += speed * (canvSize.getWidth() / 2 - mouseX);
-				posY += speed * (canvSize.getHeight() / 2 - mouseY);
+				double taktTime = takt.delta();
+				posX += taktTime * speed * (canvSize.getWidth() / 2 - mouseX);
+				posY += taktTime * speed * (canvSize.getHeight() / 2 - mouseY);
 			}
-		}, 0, 50);
+		}, 0, 1000 / MainProperties.maxFPS);
 	}
 
 	@Override

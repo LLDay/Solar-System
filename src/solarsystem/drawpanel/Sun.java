@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 
 public class Sun extends SpaceObject {
-	private static Point2D center = new Point2D.Float(0, 0);
+	private static Point2D center = new Point2D.Double(0, 0);
 
 	public Sun() {
 		super.setColor(Color.ORANGE);
@@ -22,7 +22,7 @@ public class Sun extends SpaceObject {
 		super.setColor(sunColor);
 	}
 
-	public Sun(float sunRadius, final Color sunColor, float gradientRadius) {
+	public Sun(double sunRadius, final Color sunColor, double gradientRadius) {
 		this(sunRadius, sunColor);
 		super.setGradientRadius(gradientRadius);
 	}

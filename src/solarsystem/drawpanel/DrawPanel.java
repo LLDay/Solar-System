@@ -19,10 +19,10 @@ public class DrawPanel extends JPanel implements Runnable {
 		camera = new Camera(200, 200);
 		sun = new Sun(200);
 
-		Planet earth = new Planet(sun, "Earth", 100, 500);
+		Planet earth = new Planet("Earth", 300, 800);
 		earth.setRadius(100);
 		
-		Planet mars = new Planet(sun, "Mars", 300, 200);
+		Planet mars = new Planet("Mars", 1000, 600);
 		mars.setRadius(80);
 
 		addMouseWheelListener(camera);
@@ -66,7 +66,9 @@ public class DrawPanel extends JPanel implements Runnable {
 		SpaceObject mouseFocus = getObjectByMousePos();
 
 		if (mouseFocus != null && mouseFocus.getName() != null) {
-			SolarWindow.setStateInformation(mouseFocus.getName());
+			if (mouseFocus.getName() == "")
+				SolarWindow.setStateInformation("Unnamed planet");
+			else SolarWindow.setStateInformation(mouseFocus.getName());
 			return;
 		}
 
