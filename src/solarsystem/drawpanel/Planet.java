@@ -6,7 +6,7 @@ import java.util.Random;
 import solarsystem.MainProperties;
 
 public class Planet extends SpaceObject {
-	private double speed = 1.5;
+	private double speed = 1.0;
 	private TimeTakt takt;
 	
 	private double a, b;

@@ -74,16 +74,16 @@ public class Camera extends MouseAdapter implements MouseWheelListener, MouseLis
 		return new Point2D.Double(posX, posY);
 	}
 
-	public void setCanvasSize(final Dimension size) {
+	public void setAreaSize(final Dimension size) {
 		if (size == null)
-			throw new NullPointerException("Canvas size is null");
+			throw new NullPointerException("Area size is null");
 
 		canvSize = size;
 	}
 
-	public void setCenvasSize(int width, int height) {
+	public void setAreaSize(int width, int height) {
 		if (width <= 0 || height <= 0)
-			throw new IllegalArgumentException("Wrong canvas size");
+			throw new IllegalArgumentException("Wrong area size");
 
 		canvSize = new Dimension(width, height);
 	}

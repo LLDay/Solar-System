@@ -3,13 +3,14 @@ package solarsystem;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 
-import solarsystem.drawpanel.DrawPanel;;
+import solarsystem.drawpanel.DrawPanel;
+import solarsystem.propertypanel.Property;
+import solarsystem.propertypanel.PropertyPanel;
 
 public class SolarWindow extends JFrame {
 	private JPanel drawPanel;
-	private JPanel settingsPanel;
+	private JPanel propertyPanel;
 
 	private static JLabel stateLabel = new JLabel();
 
@@ -24,13 +25,9 @@ public class SolarWindow extends JFrame {
 		this.setLayout(mainWindowLayout);
 
 		drawPanel = new DrawPanel();
-
-		settingsPanel = new JPanel(new GridLayout());
-		settingsPanel.setBackground(MainProperties.settingsPanelColor);
-		settingsPanel.setPreferredSize(new Dimension(250, 600));
-		settingsPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.white),
-				"Properties", TitledBorder.DEFAULT_POSITION, TitledBorder.DEFAULT_POSITION, MainProperties.mainFont, Color.white));
-
+		propertyPanel = new PropertyPanel();
+		
+		
 		stateLabel.setText("Current state:");
 		stateLabel.setForeground(Color.white);
 		stateLabel.setFont(MainProperties.mainFont);
@@ -43,7 +40,7 @@ public class SolarWindow extends JFrame {
 		statePanel.add(stateLabel);
 
 		this.add(drawPanel, BorderLayout.CENTER);
-		this.add(settingsPanel, BorderLayout.EAST);
+		this.add(propertyPanel, BorderLayout.EAST);
 		this.add(statePanel, BorderLayout.SOUTH);
 	}
 

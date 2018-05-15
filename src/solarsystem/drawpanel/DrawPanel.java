@@ -19,10 +19,10 @@ public class DrawPanel extends JPanel implements Runnable {
 		camera = new Camera(200, 200);
 		sun = new Sun(200);
 
-		Planet earth = new Planet("Earth", 300, 800);
+		Planet earth = new Planet("Earth", 3000, 8000);
 		earth.setRadius(100);
 		
-		Planet mars = new Planet("Mars", 1000, 600);
+		Planet mars = new Planet("Mars", 10000, 6000);
 		mars.setRadius(80);
 
 		addMouseWheelListener(camera);
@@ -93,7 +93,7 @@ public class DrawPanel extends JPanel implements Runnable {
 		super.paintComponent(g);
 		Graphics2D graphics = (Graphics2D) g;
 
-		camera.setCanvasSize(this.getSize());
+		camera.setAreaSize(this.getSize());
 
 		AffineTransform at = new AffineTransform();
 		at.translate(camera.getPosition().getX(), camera.getPosition().getY());
