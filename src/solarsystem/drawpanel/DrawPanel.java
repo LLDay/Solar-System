@@ -10,7 +10,7 @@ import solarsystem.SolarWindow;
 
 public class DrawPanel extends JPanel implements Runnable {
 	private Camera camera;
-	private Sun sun;
+	public static Sun sun;
 
 	public DrawPanel() {
 		super.setLayout(new BorderLayout());
