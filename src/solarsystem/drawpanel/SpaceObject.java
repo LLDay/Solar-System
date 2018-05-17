@@ -6,6 +6,7 @@ import java.awt.MultipleGradientPaint.CycleMethod;
 import javax.swing.JComponent;
 
 import solarsystem.MainProperties;
+import solarsystem.propertypanel.SpaceObjectProperty;
 
 
 public class SpaceObject extends JComponent {
@@ -118,6 +119,10 @@ public class SpaceObject extends JComponent {
 		double deltaY = this.position.getY() - other.position.getY();
 		
 		return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+	}
+	
+	public SpaceObjectProperty getProperty() {
+		return null;
 	}
 	
 	@Override

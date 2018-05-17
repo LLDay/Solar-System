@@ -3,12 +3,18 @@ package solarsystem.drawpanel;
 import java.awt.*;
 import java.awt.geom.Point2D;
 
+import solarsystem.propertypanel.SpaceObjectProperty;
+import solarsystem.propertypanel.SunProperty;
+
 public class Sun extends SpaceObject {
 	private static Point2D center = new Point2D.Double(0, 0);
-
+	private SunProperty property;
+	
 	public Sun() {
 		super.setColor(Color.ORANGE);
 		super.setName("The Sun");
+		property = new SunProperty(this);
+		
 	}
 
 	public Sun(double radius) {
@@ -25,5 +31,11 @@ public class Sun extends SpaceObject {
 	public Sun(double sunRadius, final Color sunColor, double gradientRadius) {
 		this(sunRadius, sunColor);
 		super.setGradientRadius(gradientRadius);
+	}
+	
+	@Override
+	public SpaceObjectProperty getProperty() {
+		property.update();
+		return property;
 	}
 }

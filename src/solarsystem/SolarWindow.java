@@ -8,8 +8,8 @@ import solarsystem.drawpanel.DrawPanel;
 import solarsystem.propertypanel.SpaceObjectProperty;
 
 public class SolarWindow extends JFrame {
-	private JPanel drawPanel;
-	private JPanel propertyPanel;
+	private static JPanel drawPanel;
+	private static JPanel propertyPanel = new JPanel();
 
 	private static JLabel stateLabel = new JLabel();
 
@@ -24,7 +24,6 @@ public class SolarWindow extends JFrame {
 		this.setLayout(mainWindowLayout);
 
 		drawPanel = new DrawPanel();
-		propertyPanel = new SpaceObjectProperty(DrawPanel.sun);
 		
 		stateLabel.setText("Current state:");
 		stateLabel.setForeground(Color.white);
@@ -45,5 +44,9 @@ public class SolarWindow extends JFrame {
 	public static void setStateInformation(String newState) {
 		stateLabel.setText(newState);
 	}
-
+	
+	public static void setProperty(final JPanel property) {
+		propertyPanel.removeAll();
+		propertyPanel.add(property);
+	}
 }

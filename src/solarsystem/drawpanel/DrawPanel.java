@@ -1,9 +1,12 @@
 package solarsystem.drawpanel;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.*;
 
 import javax.swing.JPanel;
+import javax.swing.event.MouseInputListener;
 
 import solarsystem.MainProperties;
 import solarsystem.SolarWindow;
@@ -33,6 +36,8 @@ public class DrawPanel extends JPanel implements Runnable {
 		this.add(earth);
 		this.add(mars);
 
+		this.addMouseListener(new MouseReleasedProperty());
+		
 		Thread animation = new Thread(this);
 		animation.start();
 	}
@@ -64,7 +69,7 @@ public class DrawPanel extends JPanel implements Runnable {
 
 	public void changeStateInfo() {
 		SpaceObject mouseFocus = getObjectByMousePos();
-
+		
 		if (mouseFocus != null && mouseFocus.getName() != null) {
 			if (mouseFocus.getName() == "")
 				SolarWindow.setStateInformation("Unnamed planet");
@@ -105,4 +110,15 @@ public class DrawPanel extends JPanel implements Runnable {
 		for (int i = 0; i < this.getComponentCount(); i++)
 			this.getComponent(i).paint(g);
 	}
+
+	class MouseReleasedProperty extends MouseAdapter implements MouseInputListener {
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			SpaceObject mouseFocus = getObjectByMousePos();
+			
+			if (mouseFocus != null)
+				SolarWindow.setProperty(mouseFocus.getProperty());
+		}
+	}
+	
 }
