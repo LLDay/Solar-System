@@ -1,13 +1,18 @@
-package solarsystem.drawpanel;
+package solarsystem.spaceobject;
 
 import java.awt.*;
 import java.util.Random;
 
+import javax.swing.JPanel;
+
 import solarsystem.MainProperties;
+import solarsystem.drawpanel.TimeTakt;
+import solarsystem.propertypanel.PlanetProperty;
 
 public class Planet extends SpaceObject {
 	private double speed = 1.0;
 	private TimeTakt takt;
+	private PlanetProperty property;
 	
 	private double a, b;
 	
@@ -23,6 +28,7 @@ public class Planet extends SpaceObject {
 		this.b = b;
 		
 		takt = new TimeTakt();
+		//property = new PlanetProperty(this);
 	}
 
 	private void move(double x, double y) {
@@ -37,8 +43,8 @@ public class Planet extends SpaceObject {
 		//double ang = 45 * Math.PI / 180;
 		double ang = 0.0;
 		
-		double x = a * Math.cos(speed * deltaTime + ang);
-		double y = b * Math.sin(speed * deltaTime + ang);
+		double x = a * Math.cos(MainProperties.timeSpeed * speed * deltaTime + ang);
+		double y = b * Math.sin(MainProperties.timeSpeed * speed * deltaTime + ang);
 		
 		setPosition(x, y);
 	}
@@ -51,5 +57,10 @@ public class Planet extends SpaceObject {
 	public void paint(Graphics g) {
 		update();
 		super.paint(g);
+	}
+	
+	@Override
+	public final JPanel getProperty() {
+		return property;
 	}
 }

@@ -1,12 +1,12 @@
-package solarsystem.drawpanel;
+package solarsystem.spaceobject;
 
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.MultipleGradientPaint.CycleMethod;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 import solarsystem.MainProperties;
-import solarsystem.propertypanel.SpaceObjectProperty;
 
 
 public class SpaceObject extends JComponent {
@@ -121,7 +121,7 @@ public class SpaceObject extends JComponent {
 		return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 	}
 	
-	public SpaceObjectProperty getProperty() {
+	public JPanel getProperty() {
 		return null;
 	}
 	

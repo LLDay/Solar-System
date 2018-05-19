@@ -1,4 +1,4 @@
-package solarsystem.propertypanel;
+package solarsystem.property;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;

@@ -1,9 +1,10 @@
-package solarsystem.drawpanel;
+package solarsystem.spaceobject;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
 
-import solarsystem.propertypanel.SpaceObjectProperty;
+import javax.swing.JPanel;
+
 import solarsystem.propertypanel.SunProperty;
 
 public class Sun extends SpaceObject {
@@ -14,7 +15,6 @@ public class Sun extends SpaceObject {
 		super.setColor(Color.ORANGE);
 		super.setName("The Sun");
 		property = new SunProperty(this);
-		
 	}
 
 	public Sun(double radius) {
@@ -34,8 +34,7 @@ public class Sun extends SpaceObject {
 	}
 	
 	@Override
-	public SpaceObjectProperty getProperty() {
-		property.update();
+	public final JPanel getProperty() {
 		return property;
 	}
 }

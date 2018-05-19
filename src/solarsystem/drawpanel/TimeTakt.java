@@ -5,7 +5,7 @@ public class TimeTakt {
 	private long lastTime;
 	private static double NANO_IN_SEC = Math.pow(10, 9);
 	
-	TimeTakt() {
+	public TimeTakt() {
 		firstTime = System.nanoTime();
 		lastTime = firstTime;
 	}

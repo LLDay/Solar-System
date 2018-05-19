@@ -6,13 +6,14 @@ import javax.swing.border.EmptyBorder;
 
 import solarsystem.drawpanel.DrawPanel;
 import solarsystem.propertypanel.SpaceObjectProperty;
+import solarsystem.propertypanel.SpaceProperty;
+import solarsystem.spaceobject.SpaceObject;
 
 public class SolarWindow extends JFrame {
 	private static JPanel drawPanel;
-	private static JPanel propertyPanel = new JPanel();
-
+	private static SpaceProperty spaceProperty;
 	private static JLabel stateLabel = new JLabel();
-
+	
 	public SolarWindow() {
 		super("Solar system");
 
@@ -36,8 +37,10 @@ public class SolarWindow extends JFrame {
 		statePanel.setBackground(new Color(255, 51, 0));
 		statePanel.add(stateLabel);
 
+		spaceProperty = new SpaceProperty();
+		
 		this.add(drawPanel, BorderLayout.CENTER);
-		this.add(propertyPanel, BorderLayout.EAST);
+		this.add(spaceProperty, BorderLayout.EAST);
 		this.add(statePanel, BorderLayout.SOUTH);
 	}
 
@@ -45,8 +48,7 @@ public class SolarWindow extends JFrame {
 		stateLabel.setText(newState);
 	}
 	
-	public static void setProperty(final JPanel property) {
-		propertyPanel.removeAll();
-		propertyPanel.add(property);
+	public static void setProperty(final SpaceObject object) {
+		spaceProperty.addObjectProperty(object);
 	}
 }

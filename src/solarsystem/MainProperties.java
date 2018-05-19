@@ -13,4 +13,6 @@ public class MainProperties {
 	
 	public static Font mainFont = new Font("Bahnschrift Light", 0, 12);
 	public static int  maxFPS   = 60;
+	
+	public static double timeSpeed = 1.0;
 }

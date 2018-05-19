@@ -10,10 +10,15 @@ import javax.swing.event.MouseInputListener;
 
 import solarsystem.MainProperties;
 import solarsystem.SolarWindow;
+import solarsystem.propertypanel.SpaceProperty;
+import solarsystem.spaceobject.Planet;
+import solarsystem.spaceobject.SpaceObject;
+import solarsystem.spaceobject.Sun;
 
 public class DrawPanel extends JPanel implements Runnable {
 	private Camera camera;
-	public static Sun sun;
+	private Sun sun;
+	
 
 	public DrawPanel() {
 		super.setLayout(new BorderLayout());
@@ -90,7 +95,6 @@ public class DrawPanel extends JPanel implements Runnable {
 
 			repaint();
 		}
-
 	}
 
 	@Override
@@ -117,7 +121,7 @@ public class DrawPanel extends JPanel implements Runnable {
 			SpaceObject mouseFocus = getObjectByMousePos();
 			
 			if (mouseFocus != null)
-				SolarWindow.setProperty(mouseFocus.getProperty());
+				SolarWindow.setProperty(mouseFocus);
 		}
 	}
 	
