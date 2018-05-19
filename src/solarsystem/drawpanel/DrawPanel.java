@@ -27,10 +27,11 @@ public class DrawPanel extends JPanel implements Runnable {
 		camera = new Camera(200, 200);
 		sun = new Sun(200);
 
-		Planet earth = new Planet("Earth", 3000, 8000);
+		Planet earth = new Planet("Earth", 8000, 8000, Math.PI / 4);
 		earth.setRadius(100);
 		
-		Planet mars = new Planet("Mars", 10000, 6000);
+		Planet mars = new Planet("Mars", 10000, 8000, Math.PI / 2);
+		mars.setAngleSpeed(2.0);
 		mars.setRadius(80);
 
 		addMouseWheelListener(camera);

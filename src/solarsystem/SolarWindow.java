@@ -5,7 +5,6 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import solarsystem.drawpanel.DrawPanel;
-import solarsystem.propertypanel.SpaceObjectProperty;
 import solarsystem.propertypanel.SpaceProperty;
 import solarsystem.spaceobject.SpaceObject;
 

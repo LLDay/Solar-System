@@ -10,47 +10,53 @@ import solarsystem.drawpanel.TimeTakt;
 import solarsystem.propertypanel.PlanetProperty;
 
 public class Planet extends SpaceObject {
-	private double speed = 1.0;
+	private double angleSpeed = 1.0;
 	private TimeTakt takt;
 	private PlanetProperty property;
 	
-	private double a, b;
+	private double a, b, e, c, angle, phasa;
 	
 	static Random rand = new Random(System.currentTimeMillis());
 	
-	public Planet(String name, double a, double b) {
+	public Planet(String name, double a, double b, double angle) {
 		super.setColor(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
 		super.setGradientCenter(new Point.Double(0, 0));
 		super.setGradientRadius(MainProperties.brightness);
 		super.setName(name);
 		
-		this.a = a;
-		this.b = b;
+		this.a = Math.max(a, b);
+		this.b = Math.min(a, b);
+		this.angle = angle;
+		c = Math.sqrt(Math.abs(a * a - b * b));
+		e = c / this.a;
+		phasa = 0.0;
 		
 		takt = new TimeTakt();
-		//property = new PlanetProperty(this);
 	}
 
-	private void move(double x, double y) {
-		double deltaTime = takt.delta();
-		setPosition(getPosition().getX() + deltaTime * x, 
-				getPosition().getY() + deltaTime * y);
-	}
-	
 	private void move() {
-		double deltaTime = takt.time();
+		double deltaTime = takt.delta();
+		phasa += MainProperties.timeSpeed * angleSpeed * deltaTime;
 		
-		//double ang = 45 * Math.PI / 180;
-		double ang = 0.0;
+		double p = b * b / a;
+		double ro = p / (1 - e * Math.cos(phasa));
 		
-		double x = a * Math.cos(MainProperties.timeSpeed * speed * deltaTime + ang);
-		double y = b * Math.sin(MainProperties.timeSpeed * speed * deltaTime + ang);
+		double x = ro * Math.cos(phasa + angle) - 2 * c * Math.cos(angle);
+		double y = ro * Math.sin(phasa + angle) - 2 * c * Math.sin(angle);
 		
 		setPosition(x, y);
 	}
 	
 	private void update() {
 		move();
+	}
+	
+	public void setAngleSpeed(double speed) {
+		this.angleSpeed = speed;
+	}
+	
+	public double getAngleSpeed() {
+		return angleSpeed;
 	}
 	
 	@Override
