@@ -6,11 +6,11 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.*;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.MouseInputListener;
 
 import solarsystem.MainProperties;
 import solarsystem.SolarWindow;
-import solarsystem.propertypanel.SpaceProperty;
 import solarsystem.spaceobject.Planet;
 import solarsystem.spaceobject.SpaceObject;
 import solarsystem.spaceobject.Sun;
@@ -27,7 +27,7 @@ public class DrawPanel extends JPanel implements Runnable {
 		camera = new Camera(200, 200);
 		sun = new Sun(200);
 
-		Planet earth = new Planet("Earth", 8000, 8000, Math.PI / 4);
+		Planet earth = new Planet("Earth", 5000, 8000, Math.PI / 4);
 		earth.setRadius(100);
 		
 		Planet mars = new Planet("Mars", 10000, 8000, Math.PI / 2);
@@ -119,6 +119,9 @@ public class DrawPanel extends JPanel implements Runnable {
 	class MouseReleasedProperty extends MouseAdapter implements MouseInputListener {
 		@Override
 		public void mouseReleased(MouseEvent e) {
+			if (!SwingUtilities.isLeftMouseButton(e))
+				return;
+			
 			SpaceObject mouseFocus = getObjectByMousePos();
 			
 			if (mouseFocus != null)

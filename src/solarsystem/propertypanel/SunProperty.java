@@ -37,46 +37,23 @@ public class SunProperty extends JPanel {
 		super.add(settings, BorderLayout.SOUTH);
 	}
 
-	private class SunSettingsPanel extends JPanel {
+	private class SunSettingsPanel extends SmartGridBagLayoutJPanel {
 		final SpaceObject object;
 
 		public SunSettingsPanel(final SpaceObject spaceObject) {
 			object = spaceObject;
 
-			GridBagLayout gbl_panel_2 = new GridBagLayout();
-			gbl_panel_2.columnWidths = new int[] { 0, 0 };
-			gbl_panel_2.rowHeights = new int[] { 0, 0, 0, 0 };
-			gbl_panel_2.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-			gbl_panel_2.rowWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
-			super.setLayout(gbl_panel_2);
-
 			JPanel sizeSettingsPanel = new SizeSettingsPanel(object);
-			GridBagConstraints gbc_panel_3 = new GridBagConstraints();
-			gbc_panel_3.insets = new Insets(0, 0, 5, 0);
-			gbc_panel_3.fill = GridBagConstraints.BOTH;
-			gbc_panel_3.gridx = 0;
-			gbc_panel_3.gridy = 0;
-			super.add(sizeSettingsPanel, gbc_panel_3);
-
 			JPanel nameSettingsPanel = new NameSettingsPanel(object);
-			GridBagConstraints gbc_panel_4 = new GridBagConstraints();
-			gbc_panel_4.insets = new Insets(0, 0, 5, 0);
-			gbc_panel_4.fill = GridBagConstraints.BOTH;
-			gbc_panel_4.gridx = 0;
-			gbc_panel_4.gridy = 1;
-			super.add(nameSettingsPanel, gbc_panel_4);
-
 			JPanel buttonPanel = new JPanel();
 			JButton colorButton = new ColorButton(object);
 			
 			buttonPanel.setLayout(new BorderLayout());
 			buttonPanel.add(colorButton, BorderLayout.WEST);
 			
-			GridBagConstraints gbc_panel_5 = new GridBagConstraints();
-			gbc_panel_5.fill = GridBagConstraints.BOTH;
-			gbc_panel_5.gridx = 0;
-			gbc_panel_5.gridy = 2;
-			super.add(buttonPanel, gbc_panel_5);
+			super.addColumn(sizeSettingsPanel);
+			super.addColumn(nameSettingsPanel);
+			super.addColumn(buttonPanel);
 		}
 	}
 

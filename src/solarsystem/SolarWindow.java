@@ -49,5 +49,6 @@ public class SolarWindow extends JFrame {
 	
 	public static void setProperty(final SpaceObject object) {
 		spaceProperty.addObjectProperty(object);
+		spaceProperty.repaint();
 	}
 }

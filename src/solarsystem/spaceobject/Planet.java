@@ -10,15 +10,15 @@ import solarsystem.drawpanel.TimeTakt;
 import solarsystem.propertypanel.PlanetProperty;
 
 public class Planet extends SpaceObject {
-	private double angleSpeed = 1.0;
+	private double angleSpeed = 45.0 / 180 * Math.PI;
 	private TimeTakt takt;
 	private PlanetProperty property;
 	
-	private double a, b, e, c, angle, phasa;
+	private double a, b, e, c, angle, phase;
 	
 	static Random rand = new Random(System.currentTimeMillis());
 	
-	public Planet(String name, double a, double b, double angle) {
+	public Planet(final String name, double a, double b, double angle) {
 		super.setColor(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
 		super.setGradientCenter(new Point.Double(0, 0));
 		super.setGradientRadius(MainProperties.brightness);
@@ -29,28 +29,26 @@ public class Planet extends SpaceObject {
 		this.angle = angle;
 		c = Math.sqrt(Math.abs(a * a - b * b));
 		e = c / this.a;
-		phasa = 0.0;
+		phase = 0.0;
 		
+		property = new PlanetProperty(this);
 		takt = new TimeTakt();
 	}
 
 	private void move() {
 		double deltaTime = takt.delta();
-		phasa += MainProperties.timeSpeed * angleSpeed * deltaTime;
+		phase += MainProperties.timeSpeed * angleSpeed * deltaTime;
+		phase %= 2 * Math.PI;
 		
 		double p = b * b / a;
-		double ro = p / (1 - e * Math.cos(phasa));
+		double ro = p / (1 - e * Math.cos(phase));
 		
-		double x = ro * Math.cos(phasa + angle) - 2 * c * Math.cos(angle);
-		double y = ro * Math.sin(phasa + angle) - 2 * c * Math.sin(angle);
+		double x = -ro * Math.cos(phase + angle) + 2 * c * Math.cos(angle);
+		double y = -ro * Math.sin(phase + angle) + 2 * c * Math.sin(angle);
 		
 		setPosition(x, y);
 	}
-	
-	private void update() {
-		move();
-	}
-	
+
 	public void setAngleSpeed(double speed) {
 		this.angleSpeed = speed;
 	}
@@ -59,9 +57,17 @@ public class Planet extends SpaceObject {
 		return angleSpeed;
 	}
 	
+	public void setPhase(double phase) {
+		this.phase = phase;
+	}
+	
+	public void reverse() {
+		angleSpeed = -angleSpeed;
+	}
+	
 	@Override
-	public void paint(Graphics g) {
-		update();
+ 	public void paint(Graphics g) {
+		move();
 		super.paint(g);
 	}
 	

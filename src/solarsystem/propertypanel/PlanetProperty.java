@@ -2,161 +2,41 @@ package solarsystem.propertypanel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
-import solarsystem.property.TextFieldLimit;
-import solarsystem.spaceobject.Planet;
+import solarsystem.property.ColorButton;
+import solarsystem.property.NameSettingsPanel;
+import solarsystem.property.SizeSettingsPanel;
 import solarsystem.spaceobject.SpaceObject;
 
 public class PlanetProperty extends JPanel {
-//	Info info;
-//	Settings settings;
-//	
-//	public PlanetProperty(Planet planet) {
-//		super.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Sun", TitledBorder.LEADING,
-//				TitledBorder.TOP, null, new Color(0, 0, 0)));
-//		
-//		info = new Info();
-//		settings = new Settings();
-//		
-//		
-//		super.add(info, BorderLayout.NORTH);
-//		super.add(settings, BorderLayout.SOUTH);
-//	}
-//	
-//	private class Info extends JPanel {
-//		JLabel spaceObjectName = new JLabel();
-//		JLabel spaceObjectSize = new JLabel();
-//
-//		public Info() {
-//			super.setLayout(new BorderLayout());
-//			super.setBorder(new TitledBorder(null, "Info", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-//
-//			JPanel staticInfoPanel = new JPanel();
-//			super.add(staticInfoPanel);
-//			staticInfoPanel.setLayout(new GridLayout(0, 1, 5, 5));
-//
-//			staticInfoPanel.add(spaceObjectName);
-//			spaceObjectName.setHorizontalAlignment(SwingConstants.LEFT);
-//
-//			staticInfoPanel.add(spaceObjectSize);
-//			spaceObjectSize.setHorizontalAlignment(SwingConstants.LEFT);
-//
-//			JPanel positionPanel = new JPanel();
-//			positionPanel
-//					.setBorder(new TitledBorder(null, "Position", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-//			super.add(positionPanel, BorderLayout.SOUTH);
-//			positionPanel.setLayout(new GridLayout(0, 1, 5, 5));
-//
-//			update();
-//		}
-//
-//		public void update() {
-//			spaceObjectName.setText("Name: "   +  getObject().getName());
-//			spaceObjectSize.setText("Radius: " + getObject().getRadius() + " km");
-//		}
-//	}
-//
-//	private class Settings extends JPanel {
-//		JTextField nameTextField = new JTextField();
-//		JSlider slider;
-//
-//		public Settings() {
-//			JPanel settingsPanelFlow = new JPanel();
-//			FlowLayout flowLayout = (FlowLayout) settingsPanelFlow.getLayout();
-//			flowLayout.setVgap(0);
-//			flowLayout.setHgap(0);
-//			super.add(settingsPanelFlow);
-//
-//			JPanel settingsPanel = new JPanel();
-//			settingsPanel
-//					.setBorder(new TitledBorder(null, "Settings", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-//			settingsPanelFlow.add(settingsPanel);
-//			settingsPanel.setLayout(new GridLayout(3, 0, 5, 5));
-//
-//			JPanel sizePanel = new SliderSize();
-//			settingsPanel.add(sizePanel);
-//
-//			JPanel namePanel = new JPanel();
-//			settingsPanel.add(namePanel);
-//			namePanel.setLayout(new BorderLayout(5, 5));
-//			namePanel.setMaximumSize(new Dimension(100, 25));
-//
-//			JLabel lblName = new JLabel("Name");
-//			namePanel.add(lblName, BorderLayout.CENTER);
-//
-//			namePanel.add(nameTextField, BorderLayout.EAST);
-//			nameTextField.setColumns(17);
-//			nameTextField.setDocument(new TextFieldLimit(25));
-//			nameTextField.addKeyListener(new NameKeyListener());
-//
-//			JPanel buttonsPanel = new JPanel();
-//			settingsPanel.add(buttonsPanel);
-//			buttonsPanel.setLayout(new BorderLayout(0, 0));
-//
-//			JButton btnColor = new JButton("Color");
-//			buttonsPanel.add(btnColor, BorderLayout.WEST);
-//
-//			JButton btnDelete = new JButton("Delete");
-//			buttonsPanel.add(btnDelete, BorderLayout.EAST);
-//		}
-//
-//		private class NameKeyListener extends KeyAdapter implements KeyListener {
-//			@Override
-//			public void keyReleased(KeyEvent e) {
-//				getObject().setName(nameTextField.getText().trim());
-//				info.update();
-//			}
-//		}
-//
-//		private class SliderSize extends JPanel {
-//			JSlider slider;
-//			double k = 0.5;
-//
-//			public SliderSize() {
-//				slider = new JSlider();
-//				slider.setValue((int) (getObject().getRadius() / k));
-//				slider.setPreferredSize(new Dimension(100, 25));
-//				slider.addChangeListener(new SliderChangeListener());
-//				slider.setMaximum(5000);
-//				slider.setMinimum(1);
-//
-//				super.setLayout(new BorderLayout(5, 5));
-//				super.add(new JLabel("Size: "), BorderLayout.WEST);
-//				super.add(slider, BorderLayout.CENTER);
-//			}
-//			
-//			private class SliderChangeListener implements ChangeListener {
-//				@Override
-//				public void stateChanged(ChangeEvent e) {
-//					getObject().setRadius(slider.getValue() * k);
-//					getObject().setGradientRadius(getObject().getRadius() * 1.9);
-//					info.update();
-//				}
-//			}
-//		}
-//	}
+	PlanetInfoPanel info;
+	PlanetSettingsPanel settings;
+	
+	public PlanetProperty(final SpaceObject spaceObject) {
+		super.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Planet", TitledBorder.LEADING,
+				TitledBorder.TOP, null, new Color(0, 0, 0)));
 
-	private class PlanetInfoPanel extends JPanel {
+		super.setLayout(new BorderLayout(5, 5));
+
+		info = new PlanetInfoPanel(spaceObject);
+		settings = new PlanetSettingsPanel(spaceObject);
+
+		super.add(info, BorderLayout.NORTH);
+		super.add(settings, BorderLayout.SOUTH);
+	}
+	
+	private class PlanetInfoPanel extends SmartGridBagLayoutJPanel {
 		private final SpaceObject object;
 		
 		private JLabel spaceObjectName = new JLabel();
@@ -166,38 +46,18 @@ public class PlanetProperty extends JPanel {
 		private JLabel spaceObjectPosY = new JLabel();
 		
 		public PlanetInfoPanel(final SpaceObject spaceObject) {
-			object = spaceObject;
-			
-			GridBagLayout layout = new GridBagLayout();
-			layout.columnWidths = new int[]{0, 0};
-			layout.rowHeights = new int[]{0, 0, 0, 0};
-			layout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-			layout.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-			super.setLayout(layout);
-			
-			GridBagConstraints gbc_spaceObjectName = new GridBagConstraints();
-			gbc_spaceObjectName.insets = new Insets(0, 0, 5, 0);
-			gbc_spaceObjectName.gridx = 0;
-			gbc_spaceObjectName.gridy = 0;
-			super.add(spaceObjectName, gbc_spaceObjectName);
-			
-			GridBagConstraints gbc_spaceObjectSize = new GridBagConstraints();
-			gbc_spaceObjectSize.insets = new Insets(0, 0, 5, 0);
-			gbc_spaceObjectSize.gridx = 0;
-			gbc_spaceObjectSize.gridy = 1;
-			super.add(spaceObjectSize, gbc_spaceObjectSize);
+			object = spaceObject;	
 			
 			JPanel positionPanel = new JPanel();
 			positionPanel.setBorder(new TitledBorder(null, "Positon", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			GridBagConstraints gbc_positionPanel = new GridBagConstraints();
-			gbc_positionPanel.fill = GridBagConstraints.BOTH;
-			gbc_positionPanel.gridx = 0;
-			gbc_positionPanel.gridy = 2;
-			super.add(positionPanel, gbc_positionPanel);
 			positionPanel.setLayout(new GridLayout(0, 1, 5, 5));
 			
 			positionPanel.add(spaceObjectPosX);
 			positionPanel.add(spaceObjectPosY);
+			
+			super.addColumn(spaceObjectName);
+			super.addColumn(spaceObjectSize);
+			super.addColumn(positionPanel);
 			
 			spaceObjectSize.setHorizontalAlignment(SwingConstants.LEFT);
 			update();
@@ -211,4 +71,46 @@ public class PlanetProperty extends JPanel {
 		}
 	}
 
+	private class PlanetSettingsPanel extends JPanel {
+		final SpaceObject object;
+
+		public PlanetSettingsPanel(final SpaceObject spaceObject) {
+			object = spaceObject;
+
+			GridBagLayout gbl_panel_2 = new GridBagLayout();
+			gbl_panel_2.columnWidths = new int[] { 0, 0 };
+			gbl_panel_2.rowHeights = new int[] { 0, 0, 0, 0 };
+			gbl_panel_2.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+			gbl_panel_2.rowWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
+			super.setLayout(gbl_panel_2);
+
+			JPanel sizeSettingsPanel = new SizeSettingsPanel(object);
+			GridBagConstraints gbc_panel_3 = new GridBagConstraints();
+			gbc_panel_3.insets = new Insets(0, 0, 5, 0);
+			gbc_panel_3.fill = GridBagConstraints.BOTH;
+			gbc_panel_3.gridx = 0;
+			gbc_panel_3.gridy = 0;
+			super.add(sizeSettingsPanel, gbc_panel_3);
+
+			JPanel nameSettingsPanel = new NameSettingsPanel(object);
+			GridBagConstraints gbc_panel_4 = new GridBagConstraints();
+			gbc_panel_4.insets = new Insets(0, 0, 5, 0);
+			gbc_panel_4.fill = GridBagConstraints.BOTH;
+			gbc_panel_4.gridx = 0;
+			gbc_panel_4.gridy = 1;
+			super.add(nameSettingsPanel, gbc_panel_4);
+
+			JPanel buttonPanel = new JPanel();
+			JButton colorButton = new ColorButton(object);
+			
+			buttonPanel.setLayout(new BorderLayout());
+			buttonPanel.add(colorButton, BorderLayout.WEST);
+			
+			GridBagConstraints gbc_panel_5 = new GridBagConstraints();
+			gbc_panel_5.fill = GridBagConstraints.BOTH;
+			gbc_panel_5.gridx = 0;
+			gbc_panel_5.gridy = 2;
+			super.add(buttonPanel, gbc_panel_5);
+		}
+	}
 }
