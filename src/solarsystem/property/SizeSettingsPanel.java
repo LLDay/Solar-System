@@ -1,7 +1,6 @@
 package solarsystem.property;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,17 +14,16 @@ public class SizeSettingsPanel extends JPanel {
 	private final SpaceObject object;
 	
 	private JSlider slider;
-	double k = 0.5;
+	private double k = 0.5;
 	
 	public SizeSettingsPanel(final SpaceObject spaceObject) {
 		object = spaceObject;
 	
 		slider = new JSlider();
 		slider.setValue((int) (object.getRadius() / k));
-		slider.setPreferredSize(new Dimension(100, 25));
 		slider.addChangeListener(new SliderChangeListener());
 		slider.setMaximum(10000);
-		slider.setMinimum(1);
+		slider.setMinimum(100);
 
 		super.setLayout(new BorderLayout(5, 5));
 		super.add(new JLabel("Size: "), BorderLayout.WEST);

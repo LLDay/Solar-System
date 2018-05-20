@@ -1,6 +1,7 @@
 package solarsystem.propertypanel;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -15,17 +16,18 @@ public class SpaceProperty extends JPanel {
 	private JPanel objectSettings;
 	
 	public SpaceProperty() {
-		super.setLayout(new BorderLayout(0, 0));
+		super.setLayout(new BorderLayout(5, 5));
 		
 		JPanel objectPropertyPanel = new JPanel();
 		objectPropertyPanel.setBorder(new TitledBorder(null, "Object", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		super.add(objectPropertyPanel);
-		objectPropertyPanel.setLayout(new BorderLayout(5, 5));
+		objectPropertyPanel.setLayout(new BorderLayout(0, 0));
 		
-		JComboBox objectComboBox = new JComboBox();
+		JComboBox<String> objectComboBox = new JComboBox<>();
 		objectPropertyPanel.add(objectComboBox, BorderLayout.NORTH);
 		
 		objectSettings = new JPanel();
+		objectSettings.setLayout(new GridLayout(1, 1));
 		objectPropertyPanel.add(objectSettings, BorderLayout.CENTER);
 		
 		JPanel commonPropertyPanel = new JPanel();

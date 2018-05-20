@@ -2,10 +2,7 @@ package solarsystem.propertypanel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,14 +13,16 @@ import javax.swing.border.TitledBorder;
 
 import solarsystem.property.ColorButton;
 import solarsystem.property.NameSettingsPanel;
+import solarsystem.property.PhaseSettingsPanel;
 import solarsystem.property.SizeSettingsPanel;
-import solarsystem.spaceobject.SpaceObject;
+import solarsystem.property.SpeedSettingsPanel;
+import solarsystem.spaceobject.Planet;
 
 public class PlanetProperty extends JPanel {
 	PlanetInfoPanel info;
 	PlanetSettingsPanel settings;
 	
-	public PlanetProperty(final SpaceObject spaceObject) {
+	public PlanetProperty(final Planet spaceObject) {
 		super.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Planet", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
 
@@ -37,7 +36,7 @@ public class PlanetProperty extends JPanel {
 	}
 	
 	private class PlanetInfoPanel extends SmartGridBagLayoutJPanel {
-		private final SpaceObject object;
+		private final Planet object;
 		
 		private JLabel spaceObjectName = new JLabel();
 		private JLabel spaceObjectSize = new JLabel();
@@ -45,7 +44,7 @@ public class PlanetProperty extends JPanel {
 		private JLabel spaceObjectPosX = new JLabel();
 		private JLabel spaceObjectPosY = new JLabel();
 		
-		public PlanetInfoPanel(final SpaceObject spaceObject) {
+		public PlanetInfoPanel(final Planet spaceObject) {
 			object = spaceObject;	
 			
 			JPanel positionPanel = new JPanel();
@@ -71,46 +70,25 @@ public class PlanetProperty extends JPanel {
 		}
 	}
 
-	private class PlanetSettingsPanel extends JPanel {
-		final SpaceObject object;
+	private class PlanetSettingsPanel extends SmartGridBagLayoutJPanel {
+		public PlanetSettingsPanel(final Planet spaceObject) {
 
-		public PlanetSettingsPanel(final SpaceObject spaceObject) {
-			object = spaceObject;
-
-			GridBagLayout gbl_panel_2 = new GridBagLayout();
-			gbl_panel_2.columnWidths = new int[] { 0, 0 };
-			gbl_panel_2.rowHeights = new int[] { 0, 0, 0, 0 };
-			gbl_panel_2.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-			gbl_panel_2.rowWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
-			super.setLayout(gbl_panel_2);
-
-			JPanel sizeSettingsPanel = new SizeSettingsPanel(object);
-			GridBagConstraints gbc_panel_3 = new GridBagConstraints();
-			gbc_panel_3.insets = new Insets(0, 0, 5, 0);
-			gbc_panel_3.fill = GridBagConstraints.BOTH;
-			gbc_panel_3.gridx = 0;
-			gbc_panel_3.gridy = 0;
-			super.add(sizeSettingsPanel, gbc_panel_3);
-
-			JPanel nameSettingsPanel = new NameSettingsPanel(object);
-			GridBagConstraints gbc_panel_4 = new GridBagConstraints();
-			gbc_panel_4.insets = new Insets(0, 0, 5, 0);
-			gbc_panel_4.fill = GridBagConstraints.BOTH;
-			gbc_panel_4.gridx = 0;
-			gbc_panel_4.gridy = 1;
-			super.add(nameSettingsPanel, gbc_panel_4);
-
+			JPanel sizeSettingsPanel = new SizeSettingsPanel(spaceObject);
+			JPanel speedSettingsPanel = new SpeedSettingsPanel(spaceObject);
+			JPanel phaseSettingsPanel = new PhaseSettingsPanel(spaceObject);
+			JPanel nameSettingsPanel = new NameSettingsPanel(spaceObject);
+			
 			JPanel buttonPanel = new JPanel();
-			JButton colorButton = new ColorButton(object);
+			JButton colorButton = new ColorButton(spaceObject);
 			
 			buttonPanel.setLayout(new BorderLayout());
 			buttonPanel.add(colorButton, BorderLayout.WEST);
-			
-			GridBagConstraints gbc_panel_5 = new GridBagConstraints();
-			gbc_panel_5.fill = GridBagConstraints.BOTH;
-			gbc_panel_5.gridx = 0;
-			gbc_panel_5.gridy = 2;
-			super.add(buttonPanel, gbc_panel_5);
+
+			super.addColumn(sizeSettingsPanel);
+			super.addColumn(speedSettingsPanel);
+			super.addColumn(phaseSettingsPanel);
+			super.addColumn(nameSettingsPanel);
+			super.addColumn(buttonPanel);
 		}
 	}
 }

@@ -19,7 +19,6 @@ public class DrawPanel extends JPanel implements Runnable {
 	private Camera camera;
 	private Sun sun;
 	
-
 	public DrawPanel() {
 		super.setLayout(new BorderLayout());
 		super.setBackground(MainProperties.spaceColor);
@@ -31,7 +30,7 @@ public class DrawPanel extends JPanel implements Runnable {
 		earth.setRadius(100);
 		
 		Planet mars = new Planet("Mars", 10000, 8000, Math.PI / 2);
-		mars.setAngleSpeed(2.0);
+		mars.setAngleSpeed(Math.PI / 8);
 		mars.setRadius(80);
 
 		addMouseWheelListener(camera);

@@ -23,13 +23,12 @@ public class NameSettingsPanel extends JPanel {
 		JLabel lblName = new JLabel("Name");
 		
 		nameTextField = new JTextField();
-		nameTextField.setColumns(17);
 		nameTextField.setDocument(new TextFieldLimit(25));
 		nameTextField.addKeyListener(new NameKeyListener());
 		nameTextField.setText(object.getName());
 		
-		super.add(lblName, BorderLayout.CENTER);
-		super.add(nameTextField, BorderLayout.EAST);
+		super.add(lblName, BorderLayout.WEST);
+		super.add(nameTextField, BorderLayout.CENTER);
 	}
 	
 	private class NameKeyListener extends KeyAdapter implements KeyListener {

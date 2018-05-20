@@ -61,6 +61,10 @@ public class Planet extends SpaceObject {
 		this.phase = phase;
 	}
 	
+	public double getPhase() {
+		return phase;
+	}
+	
 	public void reverse() {
 		angleSpeed = -angleSpeed;
 	}
