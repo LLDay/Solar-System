@@ -2,30 +2,21 @@ package solarsystem.spaceobject;
 
 import java.awt.*;
 import java.awt.geom.*;
-import java.awt.MultipleGradientPaint.CycleMethod;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import solarsystem.MainProperties;
-
-
-public class SpaceObject extends JComponent {
+public abstract class SpaceObject extends JComponent {
 	private double radius;
 	private Point2D position;
 	private String name;
-
 	private Color color;
-	private Point2D gradCenter;
-	private double gradRadius;
+	
+	protected static final Point2D CENTER = new Point2D.Double(0, 0);
 
 	public SpaceObject() {
 		radius = 100;
 		position = new Point2D.Double(0, 0);
-		name = "";
-		
 		color = Color.WHITE;
-		gradCenter = new Point2D.Double(0, 0);
-		gradRadius = 100;
 		name = "";
 	}
 
@@ -77,42 +68,7 @@ public class SpaceObject extends JComponent {
 		return position;
 	}
 
-	public void setGradientCenter(final Point2D center) {
-		if (center == null)
-			throw new NullPointerException("New gradient center point is null");
-
-		gradCenter = center;
-	}
-
-	public void setGradientCenter(double x, double y) {
-		gradCenter = new Point2D.Double(x, y);
-	}
-
-	public final Point2D getGradientCenter() {
-		return gradCenter;
-	}
-
-	public void setGradientRadius(double newGradRadius) {
-		if (newGradRadius <= 0)
-			throw new IllegalArgumentException("Gradient radius cannot be negative or zero");
-		
-		gradRadius = newGradRadius;
-	}
-
-	public double getGradientRadius() {
-		return gradRadius;
-	}
-
-	private Paint getPainter() {
-		if (!MainProperties.isGradient)
-			return color;
-
-		final float[] dist = { 0.0f, 1.0f };
-		final Color[] colors = { color, MainProperties.spaceColor };
-
-		return new RadialGradientPaint(gradCenter, (float) gradRadius, gradCenter, dist, colors,
-				CycleMethod.NO_CYCLE);
-	}
+	protected abstract Paint getPainter();
 
 	public double distance(final SpaceObject other) {
 		double deltaX = this.position.getX() - other.position.getX();

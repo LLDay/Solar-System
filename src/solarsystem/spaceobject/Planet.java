@@ -1,6 +1,7 @@
 package solarsystem.spaceobject;
 
 import java.awt.*;
+import java.awt.MultipleGradientPaint.CycleMethod;
 import java.util.Random;
 
 import javax.swing.JPanel;
@@ -20,8 +21,6 @@ public class Planet extends SpaceObject {
 	
 	public Planet(final String name, double a, double b, double angle) {
 		super.setColor(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
-		super.setGradientCenter(new Point.Double(0, 0));
-		super.setGradientRadius(MainProperties.brightness);
 		super.setName(name);
 		
 		this.a = Math.max(a, b);
@@ -78,5 +77,16 @@ public class Planet extends SpaceObject {
 	@Override
 	public final JPanel getProperty() {
 		return property;
+	}
+
+	@Override
+	protected Paint getPainter() {
+		if (!MainProperties.isGradient)
+			return super.getColor();
+
+		final float[] dist = { 0.0f, 1.0f };
+		final Color[] colors = { super.getColor(), MainProperties.spaceColor };
+		
+		return new RadialGradientPaint(CENTER, (float) MainProperties.brightness, CENTER, dist, colors,	CycleMethod.NO_CYCLE);
 	}
 }

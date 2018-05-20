@@ -34,7 +34,6 @@ public class SizeSettingsPanel extends JPanel {
 		@Override
 		public void stateChanged(ChangeEvent e) {
 			object.setRadius(slider.getValue() * k);
-			object.setGradientRadius(object.getRadius() * 1.9);
 		}
 	}
 }
