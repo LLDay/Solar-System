@@ -1,7 +1,10 @@
 package solarsystem.spaceobject;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.MultipleGradientPaint.CycleMethod;
+import java.awt.Paint;
+import java.awt.RadialGradientPaint;
 import java.util.Random;
 
 import javax.swing.JPanel;

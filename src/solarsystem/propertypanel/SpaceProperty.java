@@ -9,6 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import solarsystem.property.SpaceObjectListComboBox;
 import solarsystem.property.TimeSettingsPanel;
 import solarsystem.spaceobject.SpaceObject;
 
@@ -23,7 +24,7 @@ public class SpaceProperty extends JPanel {
 		super.add(objectPropertyPanel);
 		objectPropertyPanel.setLayout(new BorderLayout(0, 0));
 		
-		JComboBox<String> objectComboBox = new JComboBox<>();
+		SpaceObjectListComboBox objectComboBox = new SpaceObjectListComboBox();
 		objectPropertyPanel.add(objectComboBox, BorderLayout.NORTH);
 		
 		objectSettings = new JPanel();

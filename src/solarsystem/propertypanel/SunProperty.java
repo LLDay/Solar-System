@@ -22,7 +22,7 @@ public class SunProperty extends JPanel {
 	private SunSettingsPanel settings;
 
 	public SunProperty(Sun sun) {
-		super.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Sun", TitledBorder.LEADING,
+		super.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Star", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
 
 		super.setLayout(new BorderLayout(5, 5));

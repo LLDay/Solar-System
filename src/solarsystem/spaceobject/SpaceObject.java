@@ -1,7 +1,12 @@
 package solarsystem.spaceobject;
 
-import java.awt.*;
-import java.awt.geom.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
+
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
@@ -79,6 +84,15 @@ public abstract class SpaceObject extends JComponent {
 	
 	public JPanel getProperty() {
 		return null;
+	}
+	
+	@Override
+	public final String toString() {
+		String trimName = name.trim();
+		if (trimName == "")
+			return "Unnamed object";
+		
+		return trimName;			
 	}
 	
 	@Override

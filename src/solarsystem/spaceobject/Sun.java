@@ -1,8 +1,9 @@
 package solarsystem.spaceobject;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.MultipleGradientPaint.CycleMethod;
-import java.awt.geom.Point2D;
+import java.awt.Paint;
+import java.awt.RadialGradientPaint;
 
 import javax.swing.JPanel;
 
@@ -15,10 +16,10 @@ public class Sun extends SpaceObject {
 	
 	public Sun() {
 		gradientCoeff = 1.9;
+		property = new SunProperty(this);
 		
 		super.setColor(Color.ORANGE);
 		super.setName("The Sun");
-		property = new SunProperty(this);
 	}
 
 	public Sun(double radius) {
