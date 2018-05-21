@@ -64,7 +64,7 @@ public class TimeSettingsPanel extends JPanel {
 					slider.setValue((int) k);
 				
 				else {
-					slider.setValue((int)(lastValue * k));
+					slider.setValue((int)(lastValue));
 					stopButton.setText("Stop");
 				}
 				slider.setEnabled(true);

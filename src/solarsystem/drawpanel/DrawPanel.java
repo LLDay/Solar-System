@@ -96,6 +96,7 @@ public class DrawPanel extends JPanel implements Runnable {
 			} catch (InterruptedException e) {}
 
 			repaint();
+			camera.update();
 		}
 	}
 

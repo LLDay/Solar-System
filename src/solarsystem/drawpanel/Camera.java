@@ -21,9 +21,8 @@ public class Camera extends MouseAdapter implements MouseWheelListener, MouseLis
 
 	private int mouseX;
 	private int mouseY;
-	private Timer timer;
 	private TimeTakt takt;
-	
+	private boolean isMoved;
 
 	Camera() {
 		zoom = 1.0;
@@ -108,10 +107,10 @@ public class Camera extends MouseAdapter implements MouseWheelListener, MouseLis
 	public Point2D getMouseSpacePosition() {
 		double mousePosX = (mouseX - posX) / zoom;
 		double mousePosY = (posY - mouseY) / zoom;
-		
+
 		return new Point2D.Double(mousePosX, mousePosY);
 	}
-	
+
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		double zoomFactor = -0.1 * e.getPreciseWheelRotation() * zoom;
@@ -120,32 +119,15 @@ public class Camera extends MouseAdapter implements MouseWheelListener, MouseLis
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if (canvSize == null)
-			return;
-
-		if (!SwingUtilities.isRightMouseButton(e))
-			return;
-
-		if (timer == null) {
-			timer = new Timer();
+		if (SwingUtilities.isRightMouseButton(e)) {
+			isMoved = true;
 			takt.delta();
 		}
-
-		timer.schedule(new TimerTask() {
-			public void run() {
-				double taktTime = takt.delta();
-				posX += taktTime * speed * (canvSize.getWidth() / 2 - mouseX);
-				posY += taktTime * speed * (canvSize.getHeight() / 2 - mouseY);
-			}
-		}, 0, 1000 / SSProgramm.maxFPS);
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if (timer != null) {
-			timer.cancel();
-			timer = null;
-		}
+		isMoved = false;
 	}
 
 	@Override
@@ -153,10 +135,18 @@ public class Camera extends MouseAdapter implements MouseWheelListener, MouseLis
 		mouseX = e.getX();
 		mouseY = e.getY();
 	}
-	
+
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		mouseX = e.getX();
 		mouseY = e.getY();
+	}
+
+	public void update() {
+		if (isMoved) {
+			double taktTime = takt.delta();
+			posX += taktTime * speed * (canvSize.getWidth() / 2 - mouseX);
+			posY += taktTime * speed * (canvSize.getHeight() / 2 - mouseY);
+		}
 	}
 }
