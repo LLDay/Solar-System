@@ -20,7 +20,7 @@ public class SizeSettingsPanel extends JPanel {
 		object = spaceObject;
 	
 		slider = new JSlider();
-		slider.setValue((int) (object.getRadius() / k));
+		slider.setValue((int) (object.getRadius() * k));
 		slider.addChangeListener(new SliderChangeListener());
 		slider.setMaximum(10000);
 		slider.setMinimum(100);
@@ -33,7 +33,7 @@ public class SizeSettingsPanel extends JPanel {
 	private class SliderChangeListener implements ChangeListener {
 		@Override
 		public void stateChanged(ChangeEvent e) {
-			object.setRadius(slider.getValue() * k);
+			object.setRadius(slider.getValue() / k);
 		}
 	}
 }

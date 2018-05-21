@@ -9,7 +9,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import solarsystem.MainProperties;
+import solarsystem.SSProgramm;
 import solarsystem.spaceobject.Planet;
 
 public class AngleSpeedPlanetPanel extends JPanel {
@@ -29,7 +29,7 @@ public class AngleSpeedPlanetPanel extends JPanel {
 		slider.setMinimum(-1000);
 
 		JLabel speedLbl = new JLabel("Speed: ");
-		speedLbl.setFont(MainProperties.mainFont);
+		speedLbl.setFont(SSProgramm.mainFont);
 		
 		super.setLayout(new BorderLayout(5, 5));
 		super.add(speedLbl, BorderLayout.WEST);

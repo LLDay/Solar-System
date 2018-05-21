@@ -12,8 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.MouseInputListener;
 
-import solarsystem.MainProperties;
-import solarsystem.SolarWindow;
+import solarsystem.SSProgramm;
 import solarsystem.spaceobject.Planet;
 import solarsystem.spaceobject.SpaceObject;
 import solarsystem.spaceobject.Sun;
@@ -24,7 +23,7 @@ public class DrawPanel extends JPanel implements Runnable {
 	
 	public DrawPanel() {
 		super.setLayout(new BorderLayout());
-		super.setBackground(MainProperties.spaceColor);
+		super.setBackground(SSProgramm.spaceColor);
 		
 		camera = new Camera(200, 200);
 		sun = new Sun(200);
@@ -80,12 +79,12 @@ public class DrawPanel extends JPanel implements Runnable {
 		
 		if (mouseFocus != null && mouseFocus.getName() != null) {
 			if (mouseFocus.getName() == "")
-				SolarWindow.setStateInformation("Unnamed planet");
-			else SolarWindow.setStateInformation(mouseFocus.getName());
+				SSProgramm.setStateInformation("Unnamed planet");
+			else SSProgramm.setStateInformation(mouseFocus.getName());
 			return;
 		}
 
-		SolarWindow.setStateInformation(String.format("%.3f", camera.getMouseSpacePosition().getX()) + " : "
+		SSProgramm.setStateInformation(String.format("%.3f", camera.getMouseSpacePosition().getX()) + " : "
 				+ String.format("%.3f", camera.getMouseSpacePosition().getY()));
 	}
 
@@ -93,7 +92,7 @@ public class DrawPanel extends JPanel implements Runnable {
 	public void run() {
 		while (true) {
 			try {
-				Thread.sleep(1000 / MainProperties.maxFPS);
+				Thread.sleep(1000 / SSProgramm.maxFPS);
 			} catch (InterruptedException e) {}
 
 			repaint();
@@ -127,7 +126,7 @@ public class DrawPanel extends JPanel implements Runnable {
 			SpaceObject mouseFocus = getObjectByMousePos();
 			
 			if (mouseFocus != null)
-				SolarWindow.setProperty(mouseFocus);
+				SSProgramm.setProperty(mouseFocus);
 		}
 	}
 	

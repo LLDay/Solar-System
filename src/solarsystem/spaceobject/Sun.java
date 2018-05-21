@@ -7,17 +7,14 @@ import java.awt.RadialGradientPaint;
 
 import javax.swing.JPanel;
 
-import solarsystem.MainProperties;
+import solarsystem.SSProgramm;
 import solarsystem.propertypanel.SunProperty;
 
 public class Sun extends SpaceObject {
-	private SunProperty property;
 	private double gradientCoeff;
 	
 	public Sun() {
 		gradientCoeff = 1.9;
-		property = new SunProperty(this);
-		
 		super.setColor(Color.ORANGE);
 		super.setName("The Sun");
 	}
@@ -44,16 +41,16 @@ public class Sun extends SpaceObject {
 	
 	@Override
 	public final JPanel getProperty() {
-		return property;
+		return new SunProperty(this);
 	}
 
 	@Override
 	protected Paint getPainter() {
-		if (!MainProperties.isGradient)
+		if (!SSProgramm.isGradient)
 			return super.getColor();
 
 		final float[] dist = { 0.0f, 1.0f };
-		final Color[] colors = { super.getColor(), MainProperties.spaceColor };
+		final Color[] colors = { super.getColor(), SSProgramm.spaceColor };
 
 		return new RadialGradientPaint(CENTER, (float) (super.getRadius() * gradientCoeff), CENTER, dist, colors, CycleMethod.NO_CYCLE);
 	}

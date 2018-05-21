@@ -1,7 +1,5 @@
 package solarsystem.property;
 
-import solarsystem.MainProperties;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -12,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import solarsystem.SSProgramm;
 
 public class TimeSettingsPanel extends JPanel {
 	JLabel  timeLbl;
@@ -25,7 +25,7 @@ public class TimeSettingsPanel extends JPanel {
 	
 	public TimeSettingsPanel() {
 		timeLbl = new JLabel("Time: 1.0x");
-		timeLbl.setFont(MainProperties.mainFont);
+		timeLbl.setFont(SSProgramm.mainFont);
 		
 		slider = new JSlider();
 		slider.setValue((int)k);
@@ -35,7 +35,7 @@ public class TimeSettingsPanel extends JPanel {
 		
 		stopButton = new JButton("Stop");
 		stopButton.addMouseListener(new ButtonClick());
-		stopButton.setFont(MainProperties.mainFont);
+		stopButton.setFont(SSProgramm.mainFont);
 		
 		lastValue = (int)k;
 		isStop = false;
@@ -49,8 +49,8 @@ public class TimeSettingsPanel extends JPanel {
 		@Override
 		public void stateChanged(ChangeEvent e) {
 			lastValue = slider.getValue();
-			MainProperties.timeSpeed = lastValue / k;
-			timeLbl.setText("Time: " + lastValue / k + "x");
+			SSProgramm.timeSpeed = lastValue / k;
+			timeLbl.setText("Time: " + SSProgramm.timeSpeed + "x");
 		}
 	}
 	
@@ -64,7 +64,7 @@ public class TimeSettingsPanel extends JPanel {
 					slider.setValue((int) k);
 				
 				else {
-					slider.setValue(lastValue);
+					slider.setValue((int)(lastValue * k));
 					stopButton.setText("Stop");
 				}
 				slider.setEnabled(true);

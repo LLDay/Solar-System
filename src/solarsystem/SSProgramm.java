@@ -1,19 +1,42 @@
 package solarsystem;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import solarsystem.drawpanel.DrawPanel;
 import solarsystem.propertypanel.SpaceProperty;
 import solarsystem.spaceobject.SpaceObject;
 
-public class SolarWindow extends JFrame {
+public class SSProgramm extends JFrame {
 	private static JPanel drawPanel;
 	private static SpaceProperty spaceProperty;
 	private static JLabel stateLabel = new JLabel();
+	
+	public static Color spaceColor = Color.BLACK;
+	public static Color defaultSunColor = Color.ORANGE;
+	public static Color settingsPanelColor = new Color(37, 77, 116);
+	
+	public static boolean isGradient = false;
+	public static double  brightness = 10000;
+	
+	public static Font mainFont = new Font("Bahnschrift Light", 0, 12);
+	public static int  maxFPS   = 60;
+	
+	public static double timeSpeed = 1.0;
 
-	public SolarWindow() {
+	public static void main(String[] args) {
+		SSProgramm solar = new SSProgramm();
+		solar.setVisible(true);
+	}
+	
+	public SSProgramm() {
 		super("Solar system");
 
 		this.setSize(new Dimension(750, 500));
@@ -26,7 +49,7 @@ public class SolarWindow extends JFrame {
 		drawPanel = new DrawPanel();
 
 		stateLabel.setForeground(Color.white);
-		stateLabel.setFont(MainProperties.mainFont);
+		stateLabel.setFont(mainFont);
 		stateLabel.setBorder(new EmptyBorder(0, 5, 0, 0));
 
 		JPanel statePanel = new JPanel(new BorderLayout());

@@ -8,7 +8,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.SwingUtilities;
-import solarsystem.MainProperties;
+
+import solarsystem.SSProgramm;
 
 public class Camera extends MouseAdapter implements MouseWheelListener, MouseListener {
 	private double zoom;
@@ -136,7 +137,7 @@ public class Camera extends MouseAdapter implements MouseWheelListener, MouseLis
 				posX += taktTime * speed * (canvSize.getWidth() / 2 - mouseX);
 				posY += taktTime * speed * (canvSize.getHeight() / 2 - mouseY);
 			}
-		}, 0, 1000 / MainProperties.maxFPS);
+		}, 0, 1000 / SSProgramm.maxFPS);
 	}
 
 	@Override

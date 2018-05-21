@@ -9,14 +9,13 @@ import java.util.Random;
 
 import javax.swing.JPanel;
 
-import solarsystem.MainProperties;
+import solarsystem.SSProgramm;
 import solarsystem.drawpanel.TimeTakt;
 import solarsystem.propertypanel.PlanetProperty;
 
 public class Planet extends SpaceObject {
 	private double angleSpeed = 45.0 / 180 * Math.PI;
 	private TimeTakt takt;
-	private PlanetProperty property;
 	
 	private double a, b, e, c, angle, phase;
 	
@@ -32,14 +31,12 @@ public class Planet extends SpaceObject {
 		c = Math.sqrt(Math.abs(a * a - b * b));
 		e = c / this.a;
 		phase = 0.0;
-		
-		property = new PlanetProperty(this);
 		takt = new TimeTakt();
 	}
 
 	private void move() {
 		double deltaTime = takt.delta();
-		phase += MainProperties.timeSpeed * angleSpeed * deltaTime;
+		phase += SSProgramm.timeSpeed * angleSpeed * deltaTime;
 		phase %= 2 * Math.PI;
 		
 		double p = b * b / a;
@@ -79,17 +76,17 @@ public class Planet extends SpaceObject {
 	
 	@Override
 	public final JPanel getProperty() {
-		return property;
+		return new PlanetProperty(this);
 	}
 
 	@Override
 	protected Paint getPainter() {
-		if (!MainProperties.isGradient)
+		if (!SSProgramm.isGradient)
 			return super.getColor();
 
 		final float[] dist = { 0.0f, 1.0f };
-		final Color[] colors = { super.getColor(), MainProperties.spaceColor };
+		final Color[] colors = { super.getColor(), SSProgramm.spaceColor };
 		
-		return new RadialGradientPaint(CENTER, (float) MainProperties.brightness, CENTER, dist, colors,	CycleMethod.NO_CYCLE);
+		return new RadialGradientPaint(CENTER, (float) SSProgramm.brightness, CENTER, dist, colors,	CycleMethod.NO_CYCLE);
 	}
 }
