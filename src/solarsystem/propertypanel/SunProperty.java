@@ -15,13 +15,14 @@ import solarsystem.property.ColorButton;
 import solarsystem.property.NameSettingsPanel;
 import solarsystem.property.SizeSettingsPanel;
 import solarsystem.spaceobject.SpaceObject;
+import solarsystem.spaceobject.SpaceObjectChangeListener;
 import solarsystem.spaceobject.Sun;
 
-public class SunProperty extends JPanel {
+public class SunProperty extends JPanel{
 	private SunInfoPanel info;
 	private SunSettingsPanel settings;
 
-	public SunProperty(Sun sun) {
+	public SunProperty(final Sun sun) {
 		super.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Star", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
 
@@ -54,7 +55,7 @@ public class SunProperty extends JPanel {
 		}
 	}
 
-	private class SunInfoPanel extends JPanel {
+	private class SunInfoPanel extends JPanel implements SpaceObjectChangeListener {
 		private final SpaceObject object;
 
 		private JLabel spaceObjectName = new JLabel();
@@ -62,7 +63,8 @@ public class SunProperty extends JPanel {
 
 		public SunInfoPanel(final SpaceObject spaceObject) {
 			object = spaceObject;
-
+			object.addSOListener(this);
+			
 			super.setLayout(new BorderLayout());
 			super.setBorder(new TitledBorder(null, "Info", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
@@ -75,10 +77,11 @@ public class SunProperty extends JPanel {
 
 			staticInfoPanel.add(spaceObjectSize);
 			spaceObjectSize.setHorizontalAlignment(SwingConstants.LEFT);
-			update();
+			updateState();
 		}
 
-		public void update() {
+		@Override
+		public void updateState() {
 			spaceObjectName.setText("Name: " + object.getName());
 			spaceObjectSize.setText("Radius: " + object.getRadius() + " km");
 		}

@@ -20,7 +20,7 @@ public class NameSettingsPanel extends JPanel {
 		
 		super.setLayout(new BorderLayout(5, 5));
 		
-		JLabel lblName = new JLabel("Name");
+		JLabel lblName = new JLabel("Name: " + object.getName());
 		
 		nameTextField = new JTextField();
 		nameTextField.setDocument(new TextFieldLimit(25));

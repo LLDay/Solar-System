@@ -13,8 +13,9 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.MouseInputListener;
 
 import solarsystem.spaceobject.Planet;
+import solarsystem.spaceobject.SpaceObjectChangeListener;
 
-public class PhaseSettingsPanel extends JPanel {
+public class PhaseSettingsPanel extends JPanel implements SpaceObjectChangeListener {
 	private final Planet object;
 	private JSlider slider;
 
@@ -23,6 +24,7 @@ public class PhaseSettingsPanel extends JPanel {
 
 	public PhaseSettingsPanel(final Planet spaceObject) {
 		object = spaceObject;
+		object.addSOListener(this);
 
 		slider = new JSlider();
 		slider.setValue((int) (object.getPhase() / Math.PI * 180 / k));
@@ -46,6 +48,11 @@ public class PhaseSettingsPanel extends JPanel {
 			object.setPhase(slider.getValue() * k * Math.PI / 180);
 		}
 	}
+	
+	@Override
+	public void updateState() {
+		slider.setValue((int) (object.getPhase() / Math.PI * 180 / k));	
+	}
 
 	private class FocusListener extends MouseAdapter implements MouseInputListener {
 
@@ -61,4 +68,5 @@ public class PhaseSettingsPanel extends JPanel {
 		}
 
 	}
+
 }

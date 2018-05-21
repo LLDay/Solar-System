@@ -16,6 +16,7 @@ import solarsystem.propertypanel.PlanetProperty;
 public class Planet extends SpaceObject {
 	private double angleSpeed = 45.0 / 180 * Math.PI;
 	private TimeTakt takt;
+	private PlanetProperty property;
 	
 	private double semiMajor; 
 	private double semiMinor;
@@ -35,10 +36,12 @@ public class Planet extends SpaceObject {
 		angle = 0.0;
 		phase = 0.0;
 		takt = new TimeTakt();
+		property = new PlanetProperty(this);
 	}
 	
 	public Planet(final String name, double a, double b, double angle) {
 		this();
+		this.setName(name);
 		this.semiMajor = Math.max(a, b);
 		this.semiMinor = Math.min(a, b);
 		this.angle = angle;
@@ -108,7 +111,7 @@ public class Planet extends SpaceObject {
 	
 	@Override
 	public final JPanel getProperty() {
-		return new PlanetProperty(this);
+		return property;
 	}
 
 	@Override

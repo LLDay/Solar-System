@@ -12,9 +12,11 @@ import solarsystem.propertypanel.SunProperty;
 
 public class Sun extends SpaceObject {
 	private double gradientCoeff;
+	private SunProperty property;
 	
 	public Sun() {
 		gradientCoeff = 1.9;
+		property = new SunProperty(this);
 		super.setColor(Color.ORANGE);
 		super.setName("The Sun");
 	}
@@ -41,7 +43,7 @@ public class Sun extends SpaceObject {
 	
 	@Override
 	public final JPanel getProperty() {
-		return new SunProperty(this);
+		return property;
 	}
 
 	@Override

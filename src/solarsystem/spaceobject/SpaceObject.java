@@ -10,7 +10,7 @@ import java.awt.geom.Point2D;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-public abstract class SpaceObject extends JComponent {
+public abstract class SpaceObject extends SpaceObjectListenerJComponent {
 	private double radius;
 	private Point2D position;
 	private String name;
@@ -30,6 +30,7 @@ public abstract class SpaceObject extends JComponent {
 			throw new NullPointerException("New color of shape is null");
 
 		color = shapeColor;
+		super.updateState();
 	}
 
 	public final Color getColor() {
@@ -41,6 +42,7 @@ public abstract class SpaceObject extends JComponent {
 			throw new IllegalArgumentException("Radius cannot be negative or zero");
 
 		radius = newRadius;
+		super.updateState();
 	}
 
 	public double getRadius() {
@@ -52,6 +54,7 @@ public abstract class SpaceObject extends JComponent {
 			throw new NullPointerException("Name of space object is null");
 
 		name = newName;
+		super.updateState();
 	}
 
 	public final String getName() {
@@ -63,10 +66,12 @@ public abstract class SpaceObject extends JComponent {
 			throw new NullPointerException("New position of shape is null");
 
 		position = newPosition;
+		super.updateState();
 	}
 
 	public void setPosition(double x, double y) {
 		position = new Point2D.Double(x, y);
+		super.updateState();
 	}
 
 	public final Point2D getPosition() {

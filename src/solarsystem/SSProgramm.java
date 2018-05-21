@@ -24,7 +24,7 @@ public class SSProgramm extends JFrame {
 	public static Color settingsPanelColor = new Color(37, 77, 116);
 	
 	public static boolean isGradient = true;
-	public static double  brightness = 30000;
+	public static double  brightness = 15000;
 	
 	public static Font mainFont = new Font("Bahnschrift Light", 0, 12);
 	public static int  maxFPS   = 60;
@@ -39,12 +39,12 @@ public class SSProgramm extends JFrame {
 	public SSProgramm() {
 		super("Solar system");
 
-		this.setSize(new Dimension(750, 500));
-		this.setMinimumSize(new Dimension(750, 500));
-		this.setBounds(100, 100, 750, 500);
+		super.setSize(new Dimension(750, 500));
+		super.setMinimumSize(new Dimension(750, 500));
+		super.setBounds(100, 100, 750, 500);
 
 		BorderLayout mainWindowLayout = new BorderLayout();
-		this.setLayout(mainWindowLayout);
+		super.setLayout(mainWindowLayout);
 
 		drawPanel = new DrawPanel();
 
@@ -60,9 +60,9 @@ public class SSProgramm extends JFrame {
 
 		spaceProperty = new SpaceProperty();
 
-		this.add(drawPanel, BorderLayout.CENTER);
-		this.add(spaceProperty, BorderLayout.EAST);
-		this.add(statePanel, BorderLayout.SOUTH);
+		super.add(drawPanel, BorderLayout.CENTER);
+		super.add(spaceProperty, BorderLayout.EAST);
+		super.add(statePanel, BorderLayout.SOUTH);
 	}
 
 	public static void setStateInformation(final String newState) {

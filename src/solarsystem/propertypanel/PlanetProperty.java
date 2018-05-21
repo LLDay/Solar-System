@@ -17,6 +17,7 @@ import solarsystem.property.PhaseSettingsPanel;
 import solarsystem.property.SizeSettingsPanel;
 import solarsystem.property.SpeedSettingsPanel;
 import solarsystem.spaceobject.Planet;
+import solarsystem.spaceobject.SpaceObjectChangeListener;
 
 public class PlanetProperty extends JPanel {
 	PlanetInfoPanel info;
@@ -35,7 +36,7 @@ public class PlanetProperty extends JPanel {
 		super.add(settings, BorderLayout.SOUTH);
 	}
 	
-	private class PlanetInfoPanel extends SmartGridBagLayoutJPanel {
+	private class PlanetInfoPanel extends SmartGridBagLayoutJPanel implements SpaceObjectChangeListener {
 		private final Planet object;
 		
 		private JLabel spaceObjectName = new JLabel();
@@ -46,6 +47,7 @@ public class PlanetProperty extends JPanel {
 		
 		public PlanetInfoPanel(final Planet spaceObject) {
 			object = spaceObject;	
+			object.addSOListener(this);
 			
 			JPanel positionPanel = new JPanel();
 			positionPanel.setBorder(new TitledBorder(null, "Positon", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -59,14 +61,15 @@ public class PlanetProperty extends JPanel {
 			super.addColumn(positionPanel);
 			
 			spaceObjectSize.setHorizontalAlignment(SwingConstants.LEFT);
-			update();
+			updateState();
 		}
 
-		public void update() {
+		@Override
+		public void updateState() {
 			spaceObjectName.setText("Name: " + object.getName());
 			spaceObjectSize.setText("Radius: " + object.getRadius() + " km");
-			spaceObjectPosX.setText("x: " + object.getPosition().getX());
-			spaceObjectPosY.setText("y: " + object.getPosition().getY());
+			spaceObjectPosX.setText("x: " + String.format("%.2f", object.getPosition().getX()));
+			spaceObjectPosY.setText("y: " + String.format("%.2f", object.getPosition().getY()));
 		}
 	}
 

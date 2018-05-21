@@ -21,8 +21,10 @@ public class ColorButton extends JButton {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				Color newColor = JColorChooser.showDialog(null, "Choose a color", object.getColor());
-				object.setColor(newColor);
-				setBackground(newColor);
+				if (newColor != null) {
+					object.setColor(newColor);
+					setBackground(newColor);
+				}
 			}
 		});
 	}
