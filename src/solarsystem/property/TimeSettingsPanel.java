@@ -1,5 +1,6 @@
 package solarsystem.property;
 
+import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -24,6 +25,7 @@ public class TimeSettingsPanel extends JPanel {
 	double k = 25.0;
 	
 	public TimeSettingsPanel() {
+		super.setLayout(new BorderLayout(5, 5));
 		timeLbl = new JLabel("Time: 1.0x");
 		timeLbl.setFont(SSProgramm.mainFont);
 		
@@ -40,9 +42,9 @@ public class TimeSettingsPanel extends JPanel {
 		lastValue = (int)k;
 		isStop = false;
 		
-		super.add(timeLbl);
-		super.add(slider);
-		super.add(stopButton);
+		super.add(timeLbl, BorderLayout.WEST);
+		super.add(slider, BorderLayout.CENTER);
+		super.add(stopButton, BorderLayout.EAST);
 	}
 	
 	private class SliderListener implements ChangeListener {

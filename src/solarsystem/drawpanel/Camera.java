@@ -1,21 +1,16 @@
 package solarsystem.drawpanel;
 
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
-import java.util.Timer;
-import java.util.TimerTask;
 
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
-import solarsystem.SSProgramm;
 
 public class Camera extends MouseAdapter implements MouseWheelListener, MouseListener {
 	private double zoom;
 	private double posX;
 	private double posY;
-	private Dimension canvSize;
 
 	private double speed = 3;
 
@@ -23,27 +18,14 @@ public class Camera extends MouseAdapter implements MouseWheelListener, MouseLis
 	private int mouseY;
 	private TimeTakt takt;
 	private boolean isMoved;
+	private final JPanel parent;
 
-	Camera() {
+	Camera(final JPanel parentPanel) {
+		parent = parentPanel;
+		posX = parent.getWidth() / 2;
+		posY = parent.getHeight() / 2;
 		zoom = 1.0;
 		takt = new TimeTakt();
-	}
-
-	Camera(final Dimension startPos) {
-		this();
-
-		if (startPos == null)
-			throw new NullPointerException("Start position is null");
-
-		posX = startPos.getWidth();
-		posY = startPos.getHeight();
-	}
-
-	Camera(double x, double y) {
-		this();
-
-		posX = x;
-		posY = y;
 	}
 
 	public void setZoom(double newZoom) {
@@ -74,34 +56,12 @@ public class Camera extends MouseAdapter implements MouseWheelListener, MouseLis
 		return new Point2D.Double(posX, posY);
 	}
 
-	public void setAreaSize(final Dimension size) {
-		if (size == null)
-			throw new NullPointerException("Area size is null");
-
-		canvSize = size;
-	}
-
-	public void setAreaSize(int width, int height) {
-		if (width <= 0 || height <= 0)
-			throw new IllegalArgumentException("Wrong area size");
-
-		canvSize = new Dimension(width, height);
-	}
-
 	public void setSpeed(double cameraSpeed) {
 		speed = cameraSpeed;
 	}
 
 	public double getSpeed() {
 		return speed;
-	}
-
-	public void centralPosition(final Container parent) {
-		if (parent == null)
-			throw new NullPointerException("Parent container is null");
-
-		posX = parent.getWidth() / 2;
-		posY = parent.getHeight() / 2;
 	}
 
 	public Point2D getMouseSpacePosition() {
@@ -145,8 +105,8 @@ public class Camera extends MouseAdapter implements MouseWheelListener, MouseLis
 	public void update() {
 		if (isMoved) {
 			double taktTime = takt.delta();
-			posX += taktTime * speed * (canvSize.getWidth() / 2 - mouseX);
-			posY += taktTime * speed * (canvSize.getHeight() / 2 - mouseY);
+			posX += taktTime * speed * (parent.getWidth() / 2 - mouseX);
+			posY += taktTime * speed * (parent.getHeight() / 2 - mouseY);
 		}
 	}
 }

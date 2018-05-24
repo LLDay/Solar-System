@@ -25,7 +25,7 @@ public class DrawPanel extends JPanel implements Runnable {
 		super.setLayout(new BorderLayout());
 		super.setBackground(SSProgramm.spaceColor);
 		
-		camera = new Camera(200, 200);
+		camera = new Camera(this);
 		sun = new Sun(200);
 
 		Planet earth = new Planet("Earth", 5000, 8000, Math.PI / 4);
@@ -54,10 +54,14 @@ public class DrawPanel extends JPanel implements Runnable {
 	}
 
 	public final SpaceObject getObjectByMousePos() {
-		double posX = camera.getMouseSpacePosition().getX();
-		double posY = camera.getMouseSpacePosition().getY();
+		Point2D mousePos = camera.getMouseSpacePosition();
+		if (mousePos == null)
+			return null;
+			
+		double posX = mousePos.getX();
+		double posY = mousePos.getY();
 
-		for (int i = 0; i < this.getComponentCount(); i++) {
+		for (int i = getComponentCount() - 1; i >= 0; i--) {
 			SpaceObject tmpObject = (SpaceObject) this.getComponent(i);
 
 			double objX = tmpObject.getPosition().getX();
@@ -78,14 +82,18 @@ public class DrawPanel extends JPanel implements Runnable {
 		SpaceObject mouseFocus = getObjectByMousePos();
 		
 		if (mouseFocus != null && mouseFocus.getName() != null) {
-			if (mouseFocus.getName() == "")
+			if (mouseFocus.getName().isEmpty())
 				SSProgramm.setStateInformation("Unnamed planet");
 			else SSProgramm.setStateInformation(mouseFocus.getName());
 			return;
 		}
+		
+		Point2D mousePos = camera.getMouseSpacePosition();
+		if (mousePos == null)
+			return;
 
-		SSProgramm.setStateInformation(String.format("%.3f", camera.getMouseSpacePosition().getX()) + " : "
-				+ String.format("%.3f", camera.getMouseSpacePosition().getY()));
+		SSProgramm.setStateInformation(String.format("%.3f", mousePos.getX()) + " : "
+				+ String.format("%.3f", mousePos.getY()));
 	}
 
 	@Override
@@ -104,8 +112,6 @@ public class DrawPanel extends JPanel implements Runnable {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D graphics = (Graphics2D) g;
-
-		camera.setAreaSize(this.getSize());
 
 		AffineTransform at = new AffineTransform();
 		at.translate(camera.getPosition().getX(), camera.getPosition().getY());

@@ -7,7 +7,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.MouseInputListener;
@@ -32,14 +31,11 @@ public class PhaseSettingsPanel extends JPanel implements SpaceObjectChangeListe
 		slider.addMouseListener(new FocusListener());
 		slider.setMaximum(3599);
 		slider.setMinimum(0);
+		slider.setSnapToTicks(true);
 
 		super.setLayout(new BorderLayout(5, 5));
 		super.add(new JLabel("Phase: "), BorderLayout.WEST);
 		super.add(slider, BorderLayout.CENTER);
-	}
-
-	public void update() {
-		slider.setValue((int) (object.getPhase() / Math.PI * 180 / k));
 	}
 
 	private class SliderChangeListener implements ChangeListener {
@@ -48,25 +44,28 @@ public class PhaseSettingsPanel extends JPanel implements SpaceObjectChangeListe
 			object.setPhase(slider.getValue() * k * Math.PI / 180);
 		}
 	}
-	
+
 	@Override
 	public void updateState() {
-		slider.setValue((int) (object.getPhase() / Math.PI * 180 / k));	
+		double currPhase = object.getPhase();
+
+		if (currPhase < 0.0)
+			currPhase = 2 * Math.PI - currPhase;
+
+		slider.setValue((int) (currPhase / Math.PI * 180 / k));
 	}
 
 	private class FocusListener extends MouseAdapter implements MouseInputListener {
-
 		@Override
-		public void mousePressed(MouseEvent e) {
-			lastSpeed = object.getAngleSpeed();
+		public void mouseEntered(MouseEvent e) {
+			double tmp = object.getAngleSpeed();
 			object.setAngleSpeed(0.0);
+			lastSpeed = tmp;
 		}
 
 		@Override
-		public void mouseReleased(MouseEvent e) {
+		public void mouseExited(MouseEvent e) {
 			object.setAngleSpeed(lastSpeed);
 		}
-
 	}
-
 }

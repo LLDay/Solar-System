@@ -8,6 +8,7 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import solarsystem.drawpanel.DrawPanel;
@@ -30,10 +31,15 @@ public class SSProgramm extends JFrame {
 	public static int  maxFPS   = 60;
 	
 	public static double timeSpeed = 1.0;
+	public static double cameraSpeed = 3.0;
 
 	public static void main(String[] args) {
-		SSProgramm solar = new SSProgramm();
-		solar.setVisible(true);
+		SwingUtilities.invokeLater(new Runnable() {
+		    public void run() {
+		    	SSProgramm solar = new SSProgramm();
+				solar.setVisible(true);
+		    }
+		});
 	}
 	
 	public SSProgramm() {

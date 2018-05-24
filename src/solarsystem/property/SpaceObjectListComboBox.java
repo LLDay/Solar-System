@@ -11,6 +11,7 @@ import solarsystem.spaceobject.SpaceObject;
 public class SpaceObjectListComboBox extends JComboBox<SpaceObject> {
 	public SpaceObjectListComboBox() {
 		super.setFont(SSProgramm.mainFont);
+		super.setSelectedIndex(-1);
 		super.addItemListener(new SelectItem());
 		update();
 	}

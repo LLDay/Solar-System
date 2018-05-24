@@ -10,13 +10,13 @@ import javax.swing.event.ChangeListener;
 
 import solarsystem.spaceobject.SpaceObject;
 
-public class SizeSettingsPanel extends JPanel {
+public class RadiusSettingsPanel extends JPanel {
 	private final SpaceObject object;
 	
 	private JSlider slider;
 	private double k = 0.5;
 	
-	public SizeSettingsPanel(final SpaceObject spaceObject) {
+	public RadiusSettingsPanel(final SpaceObject spaceObject) {
 		object = spaceObject;
 	
 		slider = new JSlider();
@@ -26,7 +26,7 @@ public class SizeSettingsPanel extends JPanel {
 		slider.setMinimum(100);
 
 		super.setLayout(new BorderLayout(5, 5));
-		super.add(new JLabel("Size: "), BorderLayout.WEST);
+		super.add(new JLabel("Radius: "), BorderLayout.WEST);
 		super.add(slider, BorderLayout.CENTER);
 	}
 

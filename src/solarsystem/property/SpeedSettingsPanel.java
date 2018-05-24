@@ -14,13 +14,13 @@ public class SpeedSettingsPanel extends JPanel {
 	private final Planet object;
 
 	private JSlider slider;
-	private double k = 0.5;
+	private double k = 0.005;
 
 	public SpeedSettingsPanel(final Planet spaceObject) {
 		object = spaceObject;
 		
 		slider = new JSlider();
-		slider.setValue((int)(object.getAngleSpeed() / Math.PI * 180 / k));
+		slider.setValue((int)(object.getAngleSpeed() / k));
 		slider.addChangeListener(new SliderChangeListener());
 		slider.setMaximum(3600);
 		slider.setMinimum(-3600);
@@ -33,7 +33,7 @@ public class SpeedSettingsPanel extends JPanel {
 	private class SliderChangeListener implements ChangeListener {
 		@Override
 		public void stateChanged(ChangeEvent e) {
-			object.setAngleSpeed(slider.getValue() * k * Math.PI / 180);
+			object.setAngleSpeed(slider.getValue() * k);
 		}
 	}
 }

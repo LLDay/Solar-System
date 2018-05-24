@@ -14,7 +14,7 @@ import javax.swing.border.TitledBorder;
 import solarsystem.property.ColorButton;
 import solarsystem.property.NameSettingsPanel;
 import solarsystem.property.PhaseSettingsPanel;
-import solarsystem.property.SizeSettingsPanel;
+import solarsystem.property.RadiusSettingsPanel;
 import solarsystem.property.SpeedSettingsPanel;
 import solarsystem.spaceobject.Planet;
 import solarsystem.spaceobject.SpaceObjectChangeListener;
@@ -45,6 +45,8 @@ public class PlanetProperty extends JPanel {
 		private JLabel spaceObjectPosX = new JLabel();
 		private JLabel spaceObjectPosY = new JLabel();
 		
+		private JLabel planetSpeed = new JLabel();
+		
 		public PlanetInfoPanel(final Planet spaceObject) {
 			object = spaceObject;	
 			object.addSOListener(this);
@@ -56,9 +58,10 @@ public class PlanetProperty extends JPanel {
 			positionPanel.add(spaceObjectPosX);
 			positionPanel.add(spaceObjectPosY);
 			
-			super.addColumn(spaceObjectName);
-			super.addColumn(spaceObjectSize);
-			super.addColumn(positionPanel);
+			super.add(spaceObjectName);
+			super.add(spaceObjectSize);
+			super.add(planetSpeed);
+			super.add(positionPanel);
 			
 			spaceObjectSize.setHorizontalAlignment(SwingConstants.LEFT);
 			updateState();
@@ -68,15 +71,16 @@ public class PlanetProperty extends JPanel {
 		public void updateState() {
 			spaceObjectName.setText("Name: " + object.getName());
 			spaceObjectSize.setText("Radius: " + object.getRadius() + " km");
-			spaceObjectPosX.setText("x: " + String.format("%.2f", object.getPosition().getX()));
-			spaceObjectPosY.setText("y: " + String.format("%.2f", object.getPosition().getY()));
+			planetSpeed.setText("Speed: " + object.getAngleSpeed());
+			spaceObjectPosX.setText("x: " + (int)object.getPosition().getX());
+			spaceObjectPosY.setText("y: " + (int)object.getPosition().getY());
 		}
 	}
 
 	private class PlanetSettingsPanel extends SmartGridBagLayoutJPanel {
 		public PlanetSettingsPanel(final Planet spaceObject) {
 
-			JPanel sizeSettingsPanel = new SizeSettingsPanel(spaceObject);
+			JPanel sizeSettingsPanel = new RadiusSettingsPanel(spaceObject);
 			JPanel speedSettingsPanel = new SpeedSettingsPanel(spaceObject);
 			JPanel phaseSettingsPanel = new PhaseSettingsPanel(spaceObject);
 			JPanel nameSettingsPanel = new NameSettingsPanel(spaceObject);
@@ -87,11 +91,11 @@ public class PlanetProperty extends JPanel {
 			buttonPanel.setLayout(new BorderLayout());
 			buttonPanel.add(colorButton, BorderLayout.WEST);
 
-			super.addColumn(sizeSettingsPanel);
-			super.addColumn(speedSettingsPanel);
-			super.addColumn(phaseSettingsPanel);
-			super.addColumn(nameSettingsPanel);
-			super.addColumn(buttonPanel);
+			super.add(sizeSettingsPanel);
+			super.add(speedSettingsPanel);
+			super.add(phaseSettingsPanel);
+			super.add(nameSettingsPanel);
+			super.add(buttonPanel);
 		}
 	}
 }

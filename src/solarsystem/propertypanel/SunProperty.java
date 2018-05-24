@@ -13,7 +13,7 @@ import javax.swing.border.TitledBorder;
 
 import solarsystem.property.ColorButton;
 import solarsystem.property.NameSettingsPanel;
-import solarsystem.property.SizeSettingsPanel;
+import solarsystem.property.RadiusSettingsPanel;
 import solarsystem.spaceobject.SpaceObject;
 import solarsystem.spaceobject.SpaceObjectChangeListener;
 import solarsystem.spaceobject.Sun;
@@ -41,7 +41,7 @@ public class SunProperty extends JPanel{
 		public SunSettingsPanel(final SpaceObject spaceObject) {
 			object = spaceObject;
 
-			JPanel sizeSettingsPanel = new SizeSettingsPanel(object);
+			JPanel sizeSettingsPanel = new RadiusSettingsPanel(object);
 			JPanel nameSettingsPanel = new NameSettingsPanel(object);
 			JPanel buttonPanel = new JPanel();
 			JButton colorButton = new ColorButton(object);
@@ -49,9 +49,9 @@ public class SunProperty extends JPanel{
 			buttonPanel.setLayout(new BorderLayout());
 			buttonPanel.add(colorButton, BorderLayout.WEST);
 			
-			super.addColumn(sizeSettingsPanel);
-			super.addColumn(nameSettingsPanel);
-			super.addColumn(buttonPanel);
+			super.add(sizeSettingsPanel);
+			super.add(nameSettingsPanel);
+			super.add(buttonPanel);
 		}
 	}
 
