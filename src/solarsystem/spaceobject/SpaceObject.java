@@ -10,7 +10,7 @@ import java.awt.geom.Point2D;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-public abstract class SpaceObject extends SpaceObjectListenerJComponent {
+public abstract class SpaceObject extends SpaceObjectPublisherJComponent {
 	private double radius;
 	private Point2D position;
 	private String name;
@@ -71,7 +71,7 @@ public abstract class SpaceObject extends SpaceObjectListenerJComponent {
 
 	public void setPosition(double x, double y) {
 		position = new Point2D.Double(x, y);
-		super.updateState();
+		super.updateMoveInfo();
 	}
 
 	public final Point2D getPosition() {

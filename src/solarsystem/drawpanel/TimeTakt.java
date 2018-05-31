@@ -14,11 +14,10 @@ public class TimeTakt {
 		long currTime = System.nanoTime();
 		double delta = (currTime - lastTime) / NANO_IN_SEC;
 		lastTime = currTime;
-		
 		return delta;
 	}
 
-	public double time() {
+	public double absolute() {
 		long currTime = System.nanoTime();
 		return (currTime - firstTime) / NANO_IN_SEC;
 	}

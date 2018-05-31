@@ -8,12 +8,14 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 
 import solarsystem.spaceobject.SpaceObject;
+import solarsystem.spaceobject.SpaceObjectChangeListener;
 
-public class ColorButton extends JButton {
+public class ColorButton extends JButton implements SpaceObjectChangeListener{
 	final SpaceObject object;
 
 	public ColorButton(final SpaceObject spaceObject) {
 		object = spaceObject;
+		spaceObject.addStateListener(this);
 
 		super.setBackground(spaceObject.getColor());
 		super.setText("Color");
@@ -27,5 +29,10 @@ public class ColorButton extends JButton {
 				}
 			}
 		});
+	}
+
+	@Override
+	public void updateState() {
+		super.setBackground(object.getColor());		
 	}
 }

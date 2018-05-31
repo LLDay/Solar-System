@@ -25,8 +25,8 @@ public class GradientSettingsPanel extends JPanel {
 		JLabel lbl = new JLabel("Brightness: ");
 		slider = new JSlider();
 		slider.setMinimum(0);
-		slider.setValue((int) Math.sqrt(SSProgramm.brightness));
-		slider.setMaximum(100);
+		slider.setMaximum(5000);
+		slider.setValue((int)Math.sqrt(SSProgramm.brightness));
 		slider.addChangeListener(new SliderListener());
 		
 		JPanel brightnessPanel = new JPanel();
@@ -42,7 +42,9 @@ public class GradientSettingsPanel extends JPanel {
 
 		@Override
 		public void stateChanged(ChangeEvent e) {
-			SSProgramm.brightness = Math.pow(1.5, slider.getValue());		
+			SSProgramm.brightness = Math.pow(slider.getValue(), 2);		
+			if (SSProgramm.brightness < 100)
+				SSProgramm.brightness = 100;
 		}	
 	}
 

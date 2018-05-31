@@ -18,6 +18,7 @@ import solarsystem.property.RadiusSettingsPanel;
 import solarsystem.property.SpeedSettingsPanel;
 import solarsystem.spaceobject.Planet;
 import solarsystem.spaceobject.SpaceObjectChangeListener;
+import solarsystem.spaceobject.SpaceObjectMoveListener;
 
 public class PlanetProperty extends JPanel {
 	PlanetInfoPanel info;
@@ -36,7 +37,7 @@ public class PlanetProperty extends JPanel {
 		super.add(settings, BorderLayout.SOUTH);
 	}
 	
-	private class PlanetInfoPanel extends SmartGridBagLayoutJPanel implements SpaceObjectChangeListener {
+	private class PlanetInfoPanel extends SmartGridBagLayoutJPanel implements SpaceObjectChangeListener, SpaceObjectMoveListener {
 		private final Planet object;
 		
 		private JLabel spaceObjectName = new JLabel();
@@ -49,7 +50,8 @@ public class PlanetProperty extends JPanel {
 		
 		public PlanetInfoPanel(final Planet spaceObject) {
 			object = spaceObject;	
-			object.addSOListener(this);
+			object.addStateListener(this);
+			object.addMoveListener(this);
 			
 			JPanel positionPanel = new JPanel();
 			positionPanel.setBorder(new TitledBorder(null, "Positon", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -60,10 +62,10 @@ public class PlanetProperty extends JPanel {
 			
 			super.add(spaceObjectName);
 			super.add(spaceObjectSize);
-			super.add(planetSpeed);
-			super.add(positionPanel);
 			
-			spaceObjectSize.setHorizontalAlignment(SwingConstants.LEFT);
+			super.add(positionPanel);
+			super.add(planetSpeed);
+			
 			updateState();
 		}
 
@@ -71,7 +73,11 @@ public class PlanetProperty extends JPanel {
 		public void updateState() {
 			spaceObjectName.setText("Name: " + object.getName());
 			spaceObjectSize.setText("Radius: " + object.getRadius() + " km");
-			planetSpeed.setText("Speed: " + object.getAngleSpeed());
+			planetSpeed.setText("Speed: " + String.format("%.2f", object.getAngleSpeed()) + "rad / c");		
+		}
+
+		@Override
+		public void updateMoveInfo() {
 			spaceObjectPosX.setText("x: " + (int)object.getPosition().getX());
 			spaceObjectPosY.setText("y: " + (int)object.getPosition().getY());
 		}

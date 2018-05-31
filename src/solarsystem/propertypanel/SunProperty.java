@@ -63,7 +63,7 @@ public class SunProperty extends JPanel{
 
 		public SunInfoPanel(final SpaceObject spaceObject) {
 			object = spaceObject;
-			object.addSOListener(this);
+			object.addStateListener(this);
 			
 			super.setLayout(new BorderLayout());
 			super.setBorder(new TitledBorder(null, "Info", TitledBorder.LEADING, TitledBorder.TOP, null, null));

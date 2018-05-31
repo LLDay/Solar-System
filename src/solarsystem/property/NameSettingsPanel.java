@@ -10,13 +10,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import solarsystem.spaceobject.SpaceObject;
+import solarsystem.spaceobject.SpaceObjectChangeListener;
 
-public class NameSettingsPanel extends JPanel {
+public class NameSettingsPanel extends JPanel implements SpaceObjectChangeListener{
 	private JTextField nameTextField;
 	private final SpaceObject object;
 	
 	public NameSettingsPanel(final SpaceObject spaceObject) {
 		object = spaceObject;
+		spaceObject.addStateListener(this);
 		
 		super.setLayout(new BorderLayout(5, 5));
 		
@@ -36,5 +38,10 @@ public class NameSettingsPanel extends JPanel {
 		public void keyReleased(KeyEvent e) {
 			object.setName(nameTextField.getText().trim());
 		}
+	}
+
+	@Override
+	public void updateState() {
+		nameTextField.setText(object.getName());
 	}
 }

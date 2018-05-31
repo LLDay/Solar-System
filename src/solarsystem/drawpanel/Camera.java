@@ -1,6 +1,5 @@
 package solarsystem.drawpanel;
 
-import java.awt.Container;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
 
@@ -20,11 +19,11 @@ public class Camera extends MouseAdapter implements MouseWheelListener, MouseLis
 	private boolean isMoved;
 	private final JPanel parent;
 
-	Camera(final JPanel parentPanel) {
+	public Camera(final JPanel parentPanel) {
 		parent = parentPanel;
-		posX = parent.getWidth() / 2;
-		posY = parent.getHeight() / 2;
-		zoom = 1.0;
+		posX = 200;
+		posY = 200;
+		zoom = 0.01;
 		takt = new TimeTakt();
 	}
 

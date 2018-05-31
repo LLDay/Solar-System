@@ -24,11 +24,13 @@ public class Sun extends SpaceObject {
 	public Sun(double radius) {
 		this();
 		super.setRadius(radius);
+		super.updateState();
 	}
 
 	public Sun(double radius, Color sunColor) {
 		this(radius);
 		super.setColor(sunColor);
+		super.updateState();
 	}
 	
 	public void setGradientCoefficient(double coefficient) { 

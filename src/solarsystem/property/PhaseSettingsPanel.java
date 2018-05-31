@@ -13,8 +13,9 @@ import javax.swing.event.MouseInputListener;
 
 import solarsystem.spaceobject.Planet;
 import solarsystem.spaceobject.SpaceObjectChangeListener;
+import solarsystem.spaceobject.SpaceObjectMoveListener;
 
-public class PhaseSettingsPanel extends JPanel implements SpaceObjectChangeListener {
+public class PhaseSettingsPanel extends JPanel implements SpaceObjectMoveListener {
 	private final Planet object;
 	private JSlider slider;
 
@@ -23,7 +24,7 @@ public class PhaseSettingsPanel extends JPanel implements SpaceObjectChangeListe
 
 	public PhaseSettingsPanel(final Planet spaceObject) {
 		object = spaceObject;
-		object.addSOListener(this);
+		object.addMoveListener(this);
 
 		slider = new JSlider();
 		slider.setValue((int) (object.getPhase() / Math.PI * 180 / k));
@@ -46,12 +47,11 @@ public class PhaseSettingsPanel extends JPanel implements SpaceObjectChangeListe
 	}
 
 	@Override
-	public void updateState() {
+	public void updateMoveInfo() {
 		double currPhase = object.getPhase();
 
 		if (currPhase < 0.0)
 			currPhase = 2 * Math.PI - currPhase;
-
 		slider.setValue((int) (currPhase / Math.PI * 180 / k));
 	}
 

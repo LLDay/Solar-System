@@ -85,6 +85,7 @@ public class Planet extends SpaceObject {
 	
 	public void setAngleSpeed(double speed) {
 		this.angleSpeed = speed;
+		super.updateState();
 	}
 	
 	public double getAngleSpeed() {
@@ -97,6 +98,14 @@ public class Planet extends SpaceObject {
 	
 	public double getPhase() {
 		return phase;
+	}
+	
+	public double getAngle() {
+		return angle;
+	}
+	
+	public void setAngle(double angle) {
+		this.angle = angle;
 	}
 	
 	public void reverse() {
